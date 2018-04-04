@@ -3,6 +3,5 @@
 
 double epsilon = 10e-10;
 
-
 #endif /* CONSTANTES_H */
 
