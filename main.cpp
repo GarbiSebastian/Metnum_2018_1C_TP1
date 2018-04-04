@@ -90,6 +90,14 @@ void prueba1(){
 
 int main(int argc, char** argv) {
     parsearEntrada(argc,argv);
+    string extension = ".out";
+    string nombreArchivoSalida = argv[1]+extension;
+    cout << nombreArchivoSalida << endl; 
+    ofstream archivoSalida(nombreArchivoSalida.c_str(),ofstream::out);
+    archivoSalida << p << endl;
+    for(unsigned int i = 1; i <= n;i++){
+        archivoSalida << i << endl;
+    }
     return 0;
 }
 

@@ -48,7 +48,14 @@
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
-
+TP=tp1
+PRUEBA1=test_15_segundos
+PRUEBA2=test_30_segundos
+PRUEBA3=test_aleatorio
+PRUEBA4=test_completo
+PRUEBA5=test_sin_links
+PRUEBA6=test_trivial
+PRUEBAS= ${PRUEBA1} ${PRUEBA2} ${PRUEBA3} ${PRUEBA4} ${PRUEBA5} ${PRUEBA6}
 
 # build
 build: .build-post
@@ -119,8 +126,15 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
+tp: all
+	cp ${CND_ARTIFACT_PATH_Release} ${TP}
 
-
+pruebas: tp .${PRUEBA1}
+	
+.test_15_segundos: 
+	./${TP} tests_tp1/test_15_segundos.txt 0.9
+#	diff tests_tp1/test_15_segundos.txt.out tests_tp1/test_15_segundos.txt.out.expected
+	
 # include project implementation makefile
 include nbproject/Makefile-impl.mk
 

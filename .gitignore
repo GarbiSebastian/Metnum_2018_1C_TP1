@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/c,c++,linux,netbeans
 
 ### C ###
@@ -100,3 +99,6 @@ nbactions.xml
 
 
 # End of https://www.gitignore.io/api/c,c++,linux,netbeans
+
+/tp1
+tests_tp1/*.out
