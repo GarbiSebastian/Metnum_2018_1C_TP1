@@ -19,7 +19,6 @@ public:
     
     double operator()(unsigned int i, unsigned int j) const; 
     Matriz& operator()(unsigned int i, unsigned int j, double valor);
-//    friend Matriz& operator+(Matriz& m1, const Matriz& m2);
     virtual Matriz& operator+(const Matriz& m2);
     friend std::ostream& operator<<(std::ostream& os, const Matriz& mat);
     
