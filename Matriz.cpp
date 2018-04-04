@@ -54,7 +54,8 @@ Matriz& Matriz::operator+(const Matriz& m2) {
     assert(this->rowSize() == m2.rowSize());
     for (unsigned int i = 1; i <= this->rowSize(); i++) {
         for (unsigned int j = 1; j <= m2.colSize(); j++) {
-            this->set(i, j, this->get(i, j) + m2.get(i, j));
+            double suma = this->get(i, j) + m2.get(i, j);
+            this->set(i, j, suma);
         }
     }
     return *this;
