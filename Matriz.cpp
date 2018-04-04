@@ -38,17 +38,6 @@ unsigned int Matriz::rowSize() const{
     return this->_rows;
 }
 
-//Matriz& operator+(Matriz& m1, const Matriz& m2) {
-//    assert(m1.colSize() == m2.colSize());
-//    assert(m1.rowSize() == m2.rowSize());
-//    for (unsigned int i = 1; i <= m1.rowSize(); i++) {
-//        for (unsigned int j = 1; j <= m2.colSize(); j++) {
-//            m1.set(i, j, m1.get(i, j) + m2.get(i, j));
-//        }
-//    }
-//    return m1;
-//}
-
 Matriz& Matriz::operator+(const Matriz& m2) {
     assert(this->colSize() == m2.colSize());
     assert(this->rowSize() == m2.rowSize());
