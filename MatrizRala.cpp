@@ -46,6 +46,8 @@ Matriz& MatrizRala::set(unsigned int i, unsigned int j, double valor) {
         if (res.second == false) {//existe la clave
             res.first->second = valor; //actualizo el valor
         }
+    }else{
+        this->_matriz[i-1].erase(j);
     }
     return *this;
 }
@@ -74,3 +76,19 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
     }
     return *this;
 }
+
+Matriz& MatrizRala::eliminacionGaussiana(bool armarLU) {
+    double m_ij,calculo;
+    for(unsigned int j=1; j <= std::min(this->colSize(),this->rowSize()); j++){
+        for(unsigned int i = j+1; i <= this->rowSize();i++){
+            m_ij = this->get(i,j)/this->get(j,j);
+            for (unsigned int k = j; k <= this->colSize(); k++) {
+                calculo = this->get(i,k) - m_ij*this->get(j,k);
+                this->set(i,k,calculo);
+            }
+            this->set(i,j,0);
+        }
+    }
+    return *this;
+}
+

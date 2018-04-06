@@ -22,14 +22,6 @@ Matriz::Matriz(const Matriz& orig) {
 Matriz::~Matriz() {
 }
 
-double Matriz::get(unsigned int i, unsigned int j) const{
-    throw 0;
-}
-
-Matriz& Matriz::set(unsigned int i, unsigned int j, double valor) {
-    throw 1;
-}
-
 unsigned int Matriz::colSize() const{
     return this->_cols;
 }
@@ -67,4 +59,16 @@ double Matriz::operator ()(unsigned int i, unsigned int j) const{
 Matriz& Matriz::operator ()(unsigned int i, unsigned int j, double valor){
     this->set(i,j,valor);
     return *this;
+}
+
+double Matriz::get(unsigned int i, unsigned int j) const{
+    throw 0;
+}
+
+Matriz& Matriz::set(unsigned int i, unsigned int j, double valor) {
+    throw 1;
+}
+
+Matriz& Matriz::eliminacionGaussiana(bool armarLU) {
+    throw 2;
 }

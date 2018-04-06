@@ -15,7 +15,7 @@ unsigned int n;
 unsigned int m;
 double p;
 
-void parsearEntrada(int argc, char** argv){
+Matriz& parsearEntrada(int argc, char** argv){
     if(argc < 3){
         cout << "Deben pasarse los parametros 'archivo' y 'probabilidad'" <<  endl;
         cout << "Parametros Pasados "<< argc << endl; 
@@ -34,15 +34,15 @@ void parsearEntrada(int argc, char** argv){
     archivoDeEntrada >> n;
     archivoDeEntrada >> m;
     cout << n << " " << m << endl ;
-    MatrizBasica A(n,n,0);
-    MatrizRala B(n,n);
+    MatrizBasica* A = new MatrizBasica(n,n);
+//    MatrizRala* A = new MatrizRala(n,n);
     unsigned int i,j;
     for(int _m = 0; _m < m; _m++){
         archivoDeEntrada >> i;
         archivoDeEntrada >> j;
-        A(i,j,1);
-        B(i,j,1);
+        A->set(i,j,1);
     }
+    return *A;
 }
 
 void prueba1(){
@@ -88,16 +88,76 @@ void prueba1(){
     cout << "B1+A2 " << chrono::duration <double, milli> (diff4).count() << " ms" << endl;
 }
 
+Matriz& pruebaEG1(){
+    unsigned int n = 2;
+    MatrizBasica* A = new MatrizBasica(n,n);
+    for(unsigned int k =0; k < n*n;k++ ){
+        unsigned int i = ceil(k/n)+1;
+        unsigned int j = (k%n)+1;
+        (*A)(i,j,k+1);
+    }
+    cout << *A << endl;
+    A->eliminacionGaussiana(false);
+    cout << *A << endl;
+    return *A;
+}
+
+Matriz& pruebaEG2(){
+    unsigned int n = 3;
+    MatrizBasica* A = new MatrizBasica(n,n);
+    for(unsigned int k =0; k < n*n;k++ ){
+        unsigned int i = ceil(k/n)+1;
+        unsigned int j = (k%n)+1;
+        (*A)(i,j,k+1);
+    }
+    cout << *A << endl;
+    A->eliminacionGaussiana(false);
+    cout << *A << endl;
+    return *A;
+}
+Matriz& pruebaEG3(){
+    unsigned int n = 2;
+    MatrizRala* A = new MatrizRala(n,n);
+    for(unsigned int k =0; k < n*n;k++ ){
+        unsigned int i = ceil(k/n)+1;
+        unsigned int j = (k%n)+1;
+        (*A)(i,j,k+1);
+    }
+    cout << *A << endl;
+    A->eliminacionGaussiana(false);
+    cout << *A << endl;
+    return *A;
+}
+
+Matriz& pruebaEG4(){
+    unsigned int n = 3;
+    MatrizRala* A = new MatrizRala(n,n);
+    for(unsigned int k =0; k < n*n;k++ ){
+        unsigned int i = ceil(k/n)+1;
+        unsigned int j = (k%n)+1;
+        (*A)(i,j,k+1);
+    }
+    cout << *A << endl;
+    A->eliminacionGaussiana(false);
+    cout << *A << endl;
+    return *A;
+}
+
 int main(int argc, char** argv) {
-    parsearEntrada(argc,argv);
+//    Matriz A = parsearEntrada(argc,argv);
+    Matriz B = pruebaEG1();
+//    Matriz C = pruebaEG2();
+    Matriz D = pruebaEG3();
+//    Matriz E = pruebaEG4();
     string extension = ".out";
     string nombreArchivoSalida = argv[1]+extension;
     cout << nombreArchivoSalida << endl; 
     ofstream archivoSalida(nombreArchivoSalida.c_str(),ofstream::out);
     archivoSalida << p << endl;
     for(unsigned int i = 1; i <= n;i++){
-        archivoSalida << i << endl;
+        archivoSalida << "algo" << endl;
     }
+    
     return 0;
 }
 

@@ -11,7 +11,6 @@ typedef std::vector<mapDato> matRala;
 typedef std::pair<int,double> parDato;
 typedef std::pair<mapDato::iterator,bool> insertResult;
 
-
 class MatrizRala : public Matriz{
 public:
     MatrizRala(unsigned int rows, unsigned int cols);
@@ -22,6 +21,7 @@ public:
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
     Matriz& operator +(const Matriz& mat) override;
     MatrizRala& operator +(const MatrizRala& mat);
+    Matriz& eliminacionGaussiana(bool armarLU) override;
 protected:
     matRala _matriz;
 private:

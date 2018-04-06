@@ -15,7 +15,7 @@ public:
     virtual double get(unsigned int i, unsigned int j) const;
     virtual Matriz& set(unsigned int i, unsigned int j, double valor);
     
-    Matriz& eliminacionGaussiana(bool armarLU);
+    virtual Matriz& eliminacionGaussiana(bool armarLU);
     
     double operator()(unsigned int i, unsigned int j) const; 
     Matriz& operator()(unsigned int i, unsigned int j, double valor);
