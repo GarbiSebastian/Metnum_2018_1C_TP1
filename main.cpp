@@ -8,6 +8,7 @@
 #include <complex>
 #include "MatrizBasica.h"
 #include "MatrizRala.h"
+#include "constantes.h"
 
 using namespace std;
 
@@ -15,6 +16,8 @@ unsigned int n;
 unsigned int m;
 double p;
 vector<double> grados;
+vector<double> D;
+vector<double> z;
 
 Matriz& parsearEntrada(int argc, char** argv) {
     if (argc < 3) {
@@ -42,18 +45,27 @@ Matriz& parsearEntrada(int argc, char** argv) {
     for (unsigned int _m = 0; _m < m; _m++) {
         archivoDeEntrada >> i;
         archivoDeEntrada >> j;
-        grados[j - 1]++;
-        A(i, j, 1);
+        grados[i - 1]++;
+        A(j, i, 1);
     }
     return A;
 }
 
-vector<double>& armarDiagonal() {
-    static vector<double> D(n, 0);
+void armarDiagonalyZ() {
+    D = vector<double>(n, 0);
+    z = vector<double>(n, 0);
+    double uno_menos_p = 1 - p;
+    double uno_sobre_n = 1/n;
+    double uno_menos_p_sobre_n = uno_menos_p/n;
     for (unsigned int k = 0; k < n; k++) {
-        D(k, 1 / grados[k]);
+        if( grados[k] == 0){
+            D(k, 0);
+            z(k, uno_sobre_n);
+        }else{
+            D(k, 1 / grados[k]);
+            z(k, uno_menos_p_sobre_n);
+        }
     }
-    return D;
 }
 
 void prueba1() {
@@ -157,7 +169,7 @@ Matriz& pruebaEG4() {
 
 int main(int argc, char** argv) {
     Matriz W = parsearEntrada(argc, argv);
-    vector<double> D = armarDiagonal();
+    armarDiagonalyZ();
     //Matriz R = W*D;
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
