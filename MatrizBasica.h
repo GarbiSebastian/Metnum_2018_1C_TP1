@@ -15,7 +15,7 @@ public:
     virtual ~MatrizBasica();
     double get(unsigned int i, unsigned int j) const override;
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
-    Matriz& eliminacionGaussiana(bool armarLU) override;
+    Matriz& eliminacionGaussiana() override;
 protected:
     matBas _matriz;
 private:

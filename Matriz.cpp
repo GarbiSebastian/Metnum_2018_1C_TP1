@@ -69,6 +69,6 @@ Matriz& Matriz::set(unsigned int i, unsigned int j, double valor) {
     throw 1;
 }
 
-Matriz& Matriz::eliminacionGaussiana(bool armarLU) {
+Matriz& Matriz::eliminacionGaussiana() {
     throw 2;
 }

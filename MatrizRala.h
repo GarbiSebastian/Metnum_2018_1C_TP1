@@ -21,7 +21,7 @@ public:
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
     Matriz& operator +(const Matriz& mat) override;
     MatrizRala& operator +(const MatrizRala& mat);
-    Matriz& eliminacionGaussiana(bool armarLU) override;
+    Matriz& eliminacionGaussiana() override;
 protected:
     matRala _matriz;
 private:

@@ -77,7 +77,7 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
     return *this;
 }
 
-Matriz& MatrizRala::eliminacionGaussiana(bool armarLU) {
+Matriz& MatrizRala::eliminacionGaussiana() {
     double m_ij,calculo;
     for(unsigned int j=1; j <= std::min(this->colSize(),this->rowSize()); j++){
         for(unsigned int i = j+1; i <= this->rowSize();i++){
