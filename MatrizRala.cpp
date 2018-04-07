@@ -3,6 +3,9 @@
 #include <cmath>
 #include "MatrizRala.h"
 #include "constantes.h"
+#include <vector>
+
+using namespace std;
 
 MatrizRala::MatrizRala(unsigned int rows, unsigned int cols) : Matriz(rows, cols) {
     this->_matriz = matRala(rows, mapDato());
@@ -77,16 +80,24 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
     return *this;
 }
 
-Matriz& MatrizRala::eliminacionGaussiana() {
+//throw 1; si sero en la diagonal
+
+Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
     double m_ij,calculo;
     for(unsigned int j=1; j <= std::min(this->colSize(),this->rowSize()); j++){
         for(unsigned int i = j+1; i <= this->rowSize();i++){
-            m_ij = this->get(i,j)/this->get(j,j);
-            for (unsigned int k = j; k <= this->colSize(); k++) {
-                calculo = this->get(i,k) - m_ij*this->get(j,k);
-                this->set(i,k,calculo);
+            if(this->get(j,j) != 0){
+                m_ij = this->get(i,j)/this->get(j,j);
+                for (auto& elem : this->_matriz[j-1]) {//Le resto uno porque estoy trabajando con la matriz directamente
+                    int k = elem.first;
+                    calculo = this->get(i,k) - m_ij*elem.second;
+                    this->set(i,k,calculo);    
+                }
+                //this->set(i,j,0);//No es necesario hacer esto
+                v[i-1] = v[i-1] - m_ij*v[j-1];
+            } else { 
+                throw 4;
             }
-            this->set(i,j,0);
         }
     }
     return *this;

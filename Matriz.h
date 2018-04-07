@@ -16,7 +16,8 @@ public:
     virtual double get(unsigned int i, unsigned int j) const;
     virtual Matriz& set(unsigned int i, unsigned int j, double valor);
     
-    virtual Matriz& eliminacionGaussiana();
+    virtual Matriz& eliminacionGaussiana(std::vector<double>& v);
+    
     virtual void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x);
 
     double operator()(unsigned int i, unsigned int j) const; 
