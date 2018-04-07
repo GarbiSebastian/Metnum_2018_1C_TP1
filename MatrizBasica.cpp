@@ -51,3 +51,17 @@ Matriz& MatrizBasica::eliminacionGaussiana() {
     }
     return *this;
 }
+
+void MatrizBasica::backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) {
+    unsigned int tam = this->colSize();
+    double suma_parcial,div;
+    for (unsigned int i = tam; i > 0; i--) {
+        div = this->get(i,i);
+        suma_parcial=0;
+        for (unsigned int j = i+1; j <= tam; j++) {
+            suma_parcial += x[j-1]*this->get(i,j)/div;
+        }
+        x[i-1] = b[i-1]/div - suma_parcial;
+    }
+}
+

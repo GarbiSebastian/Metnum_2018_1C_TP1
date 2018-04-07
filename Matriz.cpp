@@ -72,3 +72,8 @@ Matriz& Matriz::set(unsigned int i, unsigned int j, double valor) {
 Matriz& Matriz::eliminacionGaussiana() {
     throw 2;
 }
+
+void Matriz::backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) {
+    throw 3;
+}
+

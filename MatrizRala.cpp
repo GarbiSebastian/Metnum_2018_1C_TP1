@@ -92,3 +92,24 @@ Matriz& MatrizRala::eliminacionGaussiana() {
     return *this;
 }
 
+void MatrizRala::backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) {
+    unsigned int tam = this->colSize(),j;
+    double suma_parcial,div;
+    for (unsigned int i = tam; i > 0; i--) {
+        div = this->get(i,i);
+        if(div == 0){
+            throw 10;
+        }
+        suma_parcial=0;
+        for (auto elem : this->_matriz[i-1]) {
+            j = elem.first;
+            if(j >= i+1){
+                suma_parcial += x[j-1]*(elem.second)/div;
+            }
+        }
+//        for (unsigned int j = i+1; j <= tam; j++) {
+//            suma_parcial += x[j-1]*this->get(i,j)/div;
+//        }
+        x[i-1] = b[i-1]/div - suma_parcial;
+    }
+}

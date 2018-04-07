@@ -16,6 +16,7 @@ public:
     double get(unsigned int i, unsigned int j) const override;
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
     Matriz& eliminacionGaussiana() override;
+    void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) override;
 protected:
     matBas _matriz;
 private:

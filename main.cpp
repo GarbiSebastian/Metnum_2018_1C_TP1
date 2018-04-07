@@ -8,6 +8,7 @@
 #include <complex>
 #include "MatrizBasica.h"
 #include "MatrizRala.h"
+#include "constantes.h"
 
 using namespace std;
 
@@ -54,13 +55,13 @@ void armarDiagonalyZ() {
     D = vector<double>(n, 0);
     z = vector<double>(n, 0);
     double uno_menos_p = 1 - p;
-    double uno_sobre_n = 1/n;
-    double uno_menos_p_sobre_n = uno_menos_p/n;
+    double uno_sobre_n = 1 / n;
+    double uno_menos_p_sobre_n = uno_menos_p / n;
     for (unsigned int k = 0; k < n; k++) {
-        if( grados[k] == 0){
+        if (grados[k] == 0) {
             D[k] = 0;
             z[k] = uno_sobre_n;
-        }else{
+        } else {
             D[k] = 1 / grados[k];
             z[k] = uno_menos_p_sobre_n;
         }
@@ -110,7 +111,142 @@ void prueba1() {
     cout << "B1+A2 " << chrono::duration <double, milli> (diff4).count() << " ms" << endl;
 }
 
+void pruebaBS1() {
+    MatrizBasica A(2, 2, 0);
+    A(1, 1, 1);
+    A(1, 2, 2);
+    A(2, 2, 3);
+    vector<double> b(2, 0);
+    b[0] = 5;
+    b[1] = 6;
+    vector<double> x(2, 0);
+    A.backwardSubstitution(b, x);
+    cout << "A: " << endl << A << "b: [ ";
+    for (auto elem : b) cout << elem << " ";
+    cout << "]" << endl << "x | Ax=b: [ ";
+    for (auto elem : x) cout << elem << " ";
+    cout << "]" << endl << endl;
+}
+
+void pruebaBS2() {
+    MatrizBasica A(3, 3, 0);
+    A(1, 1, 1);
+    A(1, 2, 2);
+    A(1, 3, 3);
+    A(2, 2, 4);
+    A(2, 3, 5);
+    A(3, 3, 6);
+    vector<double> b(3, 0);
+    b[0] = 6;
+    b[1] = 9;
+    b[2] = 6;
+    vector<double> x(3, 0);
+    A.backwardSubstitution(b, x);
+    cout << "A: " << endl << A << "b: [ ";
+    for (auto elem : b) cout << elem << " ";
+    cout << "]" << endl << "x | Ax=b: [ ";
+    for (auto elem : x) cout << elem << " ";
+    cout << "]" << endl;
+}
+
+void pruebaBS3() {
+    MatrizRala A(2, 2, 0);
+    A(1, 1, 1);
+    A(1, 2, 2);
+    A(2, 2, 3);
+    vector<double> b(2, 0);
+    b[0] = 5;
+    b[1] = 6;
+    vector<double> x(2, 0);
+    A.backwardSubstitution(b, x);
+    cout << "A: " << endl << A << "b: [ ";
+    for (auto elem : b) cout << elem << " ";
+    cout << "]" << endl << "x | Ax=b: [ ";
+    for (auto elem : x) cout << elem << " ";
+    cout << "]" << endl << endl;
+}
+
+void pruebaBS4() {
+    MatrizRala A(3, 3, 0);
+    A(1, 1, 1);
+    A(1, 2, 2);
+    A(1, 3, 3);
+    A(2, 2, 4);
+    A(2, 3, 5);
+    A(3, 3, 6);
+    vector<double> b(3, 0);
+    b[0] = 6;
+    b[1] = 9;
+    b[2] = 6;
+    vector<double> x(3, 0);
+    A.backwardSubstitution(b, x);
+    cout << "A: " << endl << A << "b: [ ";
+    for (auto elem : b) cout << elem << " ";
+    cout << "]" << endl << "x | Ax=b: [ ";
+    for (auto elem : x) cout << elem << " ";
+    cout << "]" << endl;
+}
+
+void pruebaBSConTiempo(unsigned int n) {
+    MatrizBasica B(n, n);
+    MatrizRala R(n, n);
+    vector<double> b(n, 1), x(n, 0), y(n, 0);
+    unsigned int f = 0;
+    for (unsigned int i = 1; i <= n; i++) {
+        //Diagonal completa
+        f++;
+        B(i, i, f);
+        R(i, i, f);
+        for (unsigned int j = i + 1; j <= n; j++) {
+            if (rand() % 100 < 10) { // 90% rala en el triangulo superior
+                B(i, j, f);
+                R(i, j, f);
+            }
+            f++;
+        }
+    }
+    clock_t tStart1 = clock();
+    B.backwardSubstitution(b,x);
+    clock_t tEnd1 = clock();
+	double tiempo1 = (double) (tEnd1 - tStart1) / CLOCKS_PER_SEC;
+    clock_t tStart2 = clock();
+    R.backwardSubstitution(b,y);
+    clock_t tEnd2 = clock();
+	double tiempo2 = (double) (tEnd2 - tStart2) / CLOCKS_PER_SEC;
+    cout << "Para Matrices de " << n << "x" << n << endl;
+    cout << "tiempo MatrizBasica: " << tiempo1 << "s" << endl;
+    cout << "tiempo MatrizRala: " << tiempo2 << "s" << endl;
+    cout << "proporción: " << tiempo1/tiempo2 << endl;
+    bool distintos = false;
+    for (unsigned int i = 0; i < n; i++) {
+        if( fabs(x[i]-y[i]) < epsilon){
+            //toto joya
+        }else{
+            distintos=true;
+        }
+    }
+    if(distintos){
+        cout << "resultados diferentes " << endl;
+        for (auto elem : x) {
+            cout << elem << " ";
+        }
+        cout << endl;
+        for (auto elem : y) {
+            cout << elem << " ";
+        }
+
+    }
+}
+
 int main(int argc, char** argv) {
+    //    pruebaBS1();
+    //    pruebaBS2();
+    //    pruebaBS3();
+    //    pruebaBS4();
+    pruebaBSConTiempo(10000);
+    exit(0);
+
+
     Matriz W = parsearEntrada(argc, argv);
     armarDiagonalyZ();
     vector<double> e(n, 1);

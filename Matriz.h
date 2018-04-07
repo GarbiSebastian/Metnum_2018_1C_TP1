@@ -2,6 +2,7 @@
 #define MATRIZ_H
 
 #include <iostream>
+#include <vector>
 
 class Matriz {
 public:
@@ -16,7 +17,8 @@ public:
     virtual Matriz& set(unsigned int i, unsigned int j, double valor);
     
     virtual Matriz& eliminacionGaussiana();
-    
+    virtual void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x);
+
     double operator()(unsigned int i, unsigned int j) const; 
     Matriz& operator()(unsigned int i, unsigned int j, double valor);
     virtual Matriz& operator+(const Matriz& m2);
