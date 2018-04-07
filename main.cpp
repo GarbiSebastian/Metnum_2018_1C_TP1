@@ -8,7 +8,6 @@
 #include <complex>
 #include "MatrizBasica.h"
 #include "MatrizRala.h"
-#include "constantes.h"
 
 using namespace std;
 
@@ -59,11 +58,11 @@ void armarDiagonalyZ() {
     double uno_menos_p_sobre_n = uno_menos_p/n;
     for (unsigned int k = 0; k < n; k++) {
         if( grados[k] == 0){
-            D(k, 0);
-            z(k, uno_sobre_n);
+            D[k] = 0;
+            z[k] = uno_sobre_n;
         }else{
-            D(k, 1 / grados[k]);
-            z(k, uno_menos_p_sobre_n);
+            D[k] = 1 / grados[k];
+            z[k] = uno_menos_p_sobre_n;
         }
     }
 }
@@ -109,62 +108,6 @@ void prueba1() {
     cout << "B1+B2 " << chrono::duration <double, milli> (diff2).count() << " ms" << endl;
     cout << "A1+B2 " << chrono::duration <double, milli> (diff3).count() << " ms" << endl;
     cout << "B1+A2 " << chrono::duration <double, milli> (diff4).count() << " ms" << endl;
-}
-
-Matriz& pruebaEG1() {
-    unsigned int n = 2;
-    MatrizBasica* A = new MatrizBasica(n, n);
-    for (unsigned int k = 0; k < n * n; k++) {
-        unsigned int i = ceil(k / n) + 1;
-        unsigned int j = (k % n) + 1;
-        (*A)(i, j, k + 1);
-    }
-    cout << *A << endl;
-    A->eliminacionGaussiana(false);
-    cout << *A << endl;
-    return *A;
-}
-
-Matriz& pruebaEG2() {
-    unsigned int n = 3;
-    MatrizBasica* A = new MatrizBasica(n, n);
-    for (unsigned int k = 0; k < n * n; k++) {
-        unsigned int i = ceil(k / n) + 1;
-        unsigned int j = (k % n) + 1;
-        (*A)(i, j, k + 1);
-    }
-    cout << *A << endl;
-    A->eliminacionGaussiana(false);
-    cout << *A << endl;
-    return *A;
-}
-
-Matriz& pruebaEG3() {
-    unsigned int n = 2;
-    MatrizRala* A = new MatrizRala(n, n);
-    for (unsigned int k = 0; k < n * n; k++) {
-        unsigned int i = ceil(k / n) + 1;
-        unsigned int j = (k % n) + 1;
-        (*A)(i, j, k + 1);
-    }
-    cout << *A << endl;
-    A->eliminacionGaussiana(false);
-    cout << *A << endl;
-    return *A;
-}
-
-Matriz& pruebaEG4() {
-    unsigned int n = 3;
-    MatrizRala* A = new MatrizRala(n, n);
-    for (unsigned int k = 0; k < n * n; k++) {
-        unsigned int i = ceil(k / n) + 1;
-        unsigned int j = (k % n) + 1;
-        (*A)(i, j, k + 1);
-    }
-    cout << *A << endl;
-    A->eliminacionGaussiana(false);
-    cout << *A << endl;
-    return *A;
 }
 
 int main(int argc, char** argv) {
