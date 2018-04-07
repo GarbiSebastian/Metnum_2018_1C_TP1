@@ -2,6 +2,9 @@
 #define MATRIZ_H
 
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 class Matriz {
 public:
@@ -15,7 +18,7 @@ public:
     virtual double get(unsigned int i, unsigned int j) const;
     virtual Matriz& set(unsigned int i, unsigned int j, double valor);
     
-    virtual Matriz& eliminacionGaussiana();
+    virtual Matriz& eliminacionGaussiana(vector<double>& v );
     
     double operator()(unsigned int i, unsigned int j) const; 
     Matriz& operator()(unsigned int i, unsigned int j, double valor);

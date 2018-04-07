@@ -4,8 +4,10 @@
 #include <vector>
 #include "Matriz.h"
 
-typedef std::vector<double> vectorBas;
-typedef std::vector<vectorBas> matBas;
+using namespace std;
+
+typedef vector<double> vectorBas;
+typedef vector<vectorBas> matBas;
 
 class MatrizBasica : public Matriz {
 public:
@@ -15,7 +17,7 @@ public:
     virtual ~MatrizBasica();
     double get(unsigned int i, unsigned int j) const override;
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
-    Matriz& eliminacionGaussiana() override;
+    Matriz& eliminacionGaussiana(vector<double>& v) override;
 protected:
     matBas _matriz;
 private:

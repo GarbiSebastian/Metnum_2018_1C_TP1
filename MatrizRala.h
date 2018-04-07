@@ -6,10 +6,12 @@
 #include <map>
 #include "Matriz.h"
 
-typedef std::map<int,double> mapDato;
-typedef std::vector<mapDato> matRala;
-typedef std::pair<int,double> parDato;
-typedef std::pair<mapDato::iterator,bool> insertResult;
+using namespace std;
+
+typedef map<int,double> mapDato;
+typedef vector<mapDato> matRala;
+typedef pair<int,double> parDato;
+typedef pair<mapDato::iterator,bool> insertResult;
 
 class MatrizRala : public Matriz{
 public:
@@ -21,7 +23,7 @@ public:
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
     Matriz& operator +(const Matriz& mat) override;
     MatrizRala& operator +(const MatrizRala& mat);
-    Matriz& eliminacionGaussiana() override;
+    Matriz& eliminacionGaussiana(vector<double>& v) override;
 protected:
     matRala _matriz;
 private:

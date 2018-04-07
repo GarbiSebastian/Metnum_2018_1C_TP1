@@ -3,6 +3,9 @@
 #include <exception>
 #include <stdexcept>
 #include <math.h>
+#include <vector>
+
+using namespace std;
 
 Matriz::Matriz(unsigned int rows, unsigned int cols) {
     this->_rows=rows;
@@ -69,6 +72,6 @@ Matriz& Matriz::set(unsigned int i, unsigned int j, double valor) {
     throw 1;
 }
 
-Matriz& Matriz::eliminacionGaussiana() {
+Matriz& Matriz::eliminacionGaussiana(vector<double>& v) {
     throw 2;
 }
