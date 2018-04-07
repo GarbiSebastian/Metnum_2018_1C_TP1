@@ -48,10 +48,10 @@ Matriz& parsearEntrada(int argc, char** argv) {
     return A;
 }
 
-Matriz& armarDiagonal() {
-    static MatrizBasica D(n, n);
+vector<double>& armarDiagonal() {
+    static vector<double> D(n, 0);
     for (unsigned int k = 0; k < n; k++) {
-        D(k + 1, k + 1, 1 / grados[k]);
+        D(k, 1 / grados[k]);
     }
     return D;
 }
@@ -157,7 +157,7 @@ Matriz& pruebaEG4() {
 
 int main(int argc, char** argv) {
     Matriz W = parsearEntrada(argc, argv);
-    Matriz D = armarDiagonal();
+    vector<double> D = armarDiagonal();
     //Matriz R = W*D;
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
