@@ -48,7 +48,7 @@ Matriz& MatrizBasica::eliminacionGaussiana(vector<double>& v) {
                 calculo = this->get(i,k) - m_ij*this->get(j,k);
                 this->set(i,k,calculo);
             }
-            //this->set(i,j,0);//No es necesario hacer esto
+            this->set(i,j,0);
             v[i-1] = v[i-1] - m_ij*v[j-1];
         }
     }
