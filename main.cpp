@@ -170,6 +170,7 @@ Matriz& pruebaEG4() {
 int main(int argc, char** argv) {
     Matriz W = parsearEntrada(argc, argv);
     armarDiagonalyZ();
+    vector<double> e(n, 1);
     //Matriz R = W*D;
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
