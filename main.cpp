@@ -238,6 +238,80 @@ void pruebaBSConTiempo(unsigned int n) {
     }
 }
 
+void pruebasEliminacionGaussiana() {
+    
+    //MatrizBasica mat(3, 3);
+    MatrizRala mat(3, 3);
+    mat(1,1,1);
+    mat(1,2,2);
+    mat(1,3,3);
+    mat(2,1,4);
+    mat(2,2,5);
+    mat(2,3,6);
+    mat(3,1,7);
+    mat(3,2,8);
+    mat(3,3,5);
+    vector<double> v(3, 1);   
+    
+    /*
+    //MatrizBasica mat(4, 4);
+    MatrizRala mat(4, 4);
+    mat(1,1,1);
+    mat(1,2,0);
+    mat(1,3,0);
+    mat(1,4,3);
+    mat(2,1,2);
+    mat(2,2,1);
+    mat(2,3,0);
+    mat(2,4,0);
+    mat(3,1,0);
+    mat(3,2,3);
+    mat(3,3,1);
+    mat(3,4,0);
+    mat(4,1,0);
+    mat(4,2,5);
+    mat(4,3,0);
+    mat(4,4,1);
+    vector<double> v(4, 1);   
+    
+    MatrizBasica mat(4, 4);
+    mat(1,1,1);
+    mat(1,2,2);
+    mat(1,3,3);
+    mat(1,4,4);
+    mat(2,1,5);
+    mat(2,2,6);
+    mat(2,3,7);
+    mat(2,4,8);
+    mat(3,1,9);
+    mat(3,2,10);
+    mat(3,3,11);
+    mat(3,4,12);
+    mat(4,1,13);
+    mat(4,2,14);
+    mat(4,3,15);
+    mat(4,4,16);
+    vector<double> v(4, 1);   
+    */
+    cout << "Matriz: " << endl;
+    cout << mat;
+    cout << "Vector: " << endl;
+    for (int i = 0; i < v.size(); i++) {
+        cout << v[i] << " \t";
+    }
+    cout << endl;
+    mat.eliminacionGaussiana(v);
+    cout << "Eliminacion Gaussiana" << endl;
+    cout << "Matriz: " << endl;
+    cout << mat;
+    cout << "Vector: " << endl;
+    for (int i = 0; i < v.size(); i++) {
+        cout << v[i] << " \t";
+    }
+    cout << endl;
+    system("Pause");
+}
+
 int main(int argc, char** argv) {
     //    pruebaBS1();
     //    pruebaBS2();
@@ -245,8 +319,7 @@ int main(int argc, char** argv) {
     //    pruebaBS4();
     //    pruebaBSConTiempo(10000);
     //    exit(0);
-
-
+    pruebasEliminacionGaussiana();
     Matriz W = parsearEntrada(argc, argv);
     armarDiagonalyZ();
     vector<double> e(n, 1);
