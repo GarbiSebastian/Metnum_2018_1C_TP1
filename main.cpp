@@ -243,8 +243,8 @@ int main(int argc, char** argv) {
     //    pruebaBS2();
     //    pruebaBS3();
     //    pruebaBS4();
-    pruebaBSConTiempo(10000);
-    exit(0);
+    //    pruebaBSConTiempo(10000);
+    //    exit(0);
 
 
     Matriz W = parsearEntrada(argc, argv);
