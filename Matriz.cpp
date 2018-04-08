@@ -80,3 +80,11 @@ void Matriz::backwardSubstitution(const std::vector<double>& b, std::vector<doub
     throw 3;
 }
 
+Matriz& Matriz::multiplicaPorDiagonal(const std::vector<double>& D) {
+    cout << "llamó aca" << endl;
+    throw 6;
+}
+
+Matriz& Matriz::operator*(double lambda) {
+    throw 7;
+}
