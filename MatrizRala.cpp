@@ -7,15 +7,19 @@
 
 using namespace std;
 
-MatrizRala::MatrizRala(unsigned int rows, unsigned int cols) : Matriz(rows, cols) {
+MatrizRala::MatrizRala(unsigned int rows, unsigned int cols) {
+    this->initialize(rows, cols);
     this->_matriz = matRala(rows, mapDato());
 }
 
-MatrizRala::MatrizRala(unsigned int rows, unsigned int cols, double valorInicial) : Matriz(rows, cols, valorInicial) {
+MatrizRala::MatrizRala(unsigned int rows, unsigned int cols, double valorInicial) {
+    this->initialize(rows,cols);
     this->_matriz = matRala(rows, mapDato());
 }
 
 MatrizRala::MatrizRala(const MatrizRala& orig) : Matriz(orig) {
+    unsigned int rows = orig.rowSize(),cols=orig.colSize();
+    this->initialize(rows,cols);
     this->_matriz = matRala(this->rowSize(), mapDato());
     insertResult ret;
     for (unsigned int i = 0; i < this->rowSize(); i++) {
@@ -49,8 +53,8 @@ Matriz& MatrizRala::set(unsigned int i, unsigned int j, double valor) {
         if (res.second == false) {//existe la clave
             res.first->second = valor; //actualizo el valor
         }
-    }else{
-        this->_matriz[i-1].erase(j);
+    } else {
+        this->_matriz[i - 1].erase(j);
     }
     return *this;
 }
@@ -81,22 +85,22 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
 }
 
 Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
-    double m_ij,calculo,valor_j_j,valor_i_j;
-    for(unsigned int j=1; j <= std::min(this->colSize(),this->rowSize()); j++){
-        valor_j_j = this->get(j,j);
-        if(this->get(j,j) == 0) throw 4;
-        
-        for(unsigned int i = j+1; i <= this->rowSize();i++){
-            valor_i_j = this->get(i,j);
-            if(valor_i_j != 0){
-                m_ij = valor_i_j/valor_j_j;
-                for (auto& elem : this->_matriz[j-1]) {//Le resto uno porque estoy trabajando con la matriz directamente
+    double m_ij, calculo, valor_j_j, valor_i_j;
+    for (unsigned int j = 1; j <= std::min(this->colSize(), this->rowSize()); j++) {
+        valor_j_j = this->get(j, j);
+        if (this->get(j, j) == 0) throw 4;
+
+        for (unsigned int i = j + 1; i <= this->rowSize(); i++) {
+            valor_i_j = this->get(i, j);
+            if (valor_i_j != 0) {
+                m_ij = valor_i_j / valor_j_j;
+                for (auto& elem : this->_matriz[j - 1]) {//Le resto uno porque estoy trabajando con la matriz directamente
                     int k = elem.first;
-                    calculo = this->get(i,k) - m_ij*elem.second;
-                    this->set(i,k,calculo);    
+                    calculo = this->get(i, k) - m_ij * elem.second;
+                    this->set(i, k, calculo);
                 }
                 //this->set(i,j,0);//No es necesario hacer esto
-                v[i-1] = v[i-1] - m_ij*v[j-1];
+                v[i - 1] = v[i - 1] - m_ij * v[j - 1];
             }
         }
     }
@@ -104,32 +108,32 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
 }
 
 void MatrizRala::backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) {
-    unsigned int tam = this->colSize(),j;
-    double suma_parcial,div;
+    unsigned int tam = this->colSize(), j;
+    double suma_parcial, div;
     for (unsigned int i = tam; i > 0; i--) {
-        div = this->get(i,i);
-        if(div == 0){
+        div = this->get(i, i);
+        if (div == 0) {
             throw 10;
         }
-        suma_parcial=0;
-        for (auto elem : this->_matriz[i-1]) {
+        suma_parcial = 0;
+        for (auto elem : this->_matriz[i - 1]) {
             j = elem.first;
-            if(j >= i+1){
-                suma_parcial += x[j-1]*(elem.second)/div;
+            if (j >= i + 1) {
+                suma_parcial += x[j - 1]*(elem.second) / div;
             }
         }
-//        for (unsigned int j = i+1; j <= tam; j++) {
-//            suma_parcial += x[j-1]*this->get(i,j)/div;
-//        }
-        x[i-1] = b[i-1]/div - suma_parcial;
+        //        for (unsigned int j = i+1; j <= tam; j++) {
+        //            suma_parcial += x[j-1]*this->get(i,j)/div;
+        //        }
+        x[i - 1] = b[i - 1] / div - suma_parcial;
     }
 }
 
 Matriz& MatrizRala::multiplicaPorDiagonal(const std::vector<double>& D) {
-    std::cout << "mult rala " <<std::endl;
+    std::cout << "mult rala " << std::endl;
     for (unsigned int i = 0; i < this->rowSize(); i++) {
         for (auto& elem : this->_matriz[i]) {
-            elem.second*=D[elem.first-1];
+            elem.second *= D[elem.first - 1];
         }
     }
     return *this;

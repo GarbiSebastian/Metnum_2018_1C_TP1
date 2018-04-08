@@ -7,23 +7,11 @@
 
 using namespace std;
 
-Matriz::Matriz(unsigned int rows, unsigned int cols) {
+void Matriz::initialize(unsigned int rows, unsigned int cols) {
     this->_rows=rows;
     this->_cols=cols;
 }
 
-Matriz::Matriz(unsigned int rows, unsigned int cols, double valorInicial){
-    this->_rows=rows;
-    this->_cols=cols;
-}
-
-Matriz::Matriz(const Matriz& orig) {
-    this->_rows=orig.rowSize();
-    this->_cols=orig.colSize();
-}
-
-Matriz::~Matriz() {
-}
 
 unsigned int Matriz::colSize() const{
     return this->_cols;
@@ -62,29 +50,4 @@ double Matriz::operator ()(unsigned int i, unsigned int j) const{
 Matriz& Matriz::operator ()(unsigned int i, unsigned int j, double valor){
     this->set(i,j,valor);
     return *this;
-}
-
-double Matriz::get(unsigned int i, unsigned int j) const{
-    throw 0;
-}
-
-Matriz& Matriz::set(unsigned int i, unsigned int j, double valor) {
-    throw 1;
-}
-
-Matriz& Matriz::eliminacionGaussiana(vector<double>& v) {
-    throw 2;
-}
-
-void Matriz::backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) {
-    throw 3;
-}
-
-Matriz& Matriz::multiplicaPorDiagonal(const std::vector<double>& D) {
-    cout << "llamó aca" << endl;
-    throw 6;
-}
-
-Matriz& Matriz::operator*(double lambda) {
-    throw 7;
 }

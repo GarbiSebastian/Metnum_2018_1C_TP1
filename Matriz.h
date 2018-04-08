@@ -6,25 +6,23 @@
 
 class Matriz {
 public:
-    Matriz(unsigned int rows, unsigned int cols);
-    Matriz(unsigned int rows, unsigned int cols,double valorInicial);
-    Matriz(const Matriz& orig);
-    virtual ~Matriz();
+    
+    void initialize(unsigned int rows , unsigned int cols);
     unsigned int rowSize() const;
     unsigned int colSize() const;
     
-    virtual double get(unsigned int i, unsigned int j) const;
-    virtual Matriz& set(unsigned int i, unsigned int j, double valor);
+    virtual double get(unsigned int i, unsigned int j) const{std::cout << "get" << std::endl; exit(0);};
+    virtual Matriz& set(unsigned int i, unsigned int j, double valor){std::cout << "set" << std::endl; exit(0);};
     
-    virtual Matriz& eliminacionGaussiana(std::vector<double>& v);
-    virtual void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x);
+    virtual Matriz& eliminacionGaussiana(std::vector<double>& v){std::cout << "EG" << std::endl; exit(0);};
+    virtual void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x){std::cout << "BS" << std::endl; exit(0);};
     
-    virtual Matriz& multiplicaPorDiagonal(const std::vector<double>& D);
+    virtual Matriz& multiplicaPorDiagonal(const std::vector<double>& D){std::cout << "MPD" << std::endl; exit(0);};
 
     double operator()(unsigned int i, unsigned int j) const; 
     Matriz& operator()(unsigned int i, unsigned int j, double valor);
     virtual Matriz& operator+(const Matriz& m2);
-    virtual Matriz& operator*(double lambda);
+    virtual Matriz& operator*(double lambda){std::cout << "*" << std::endl; exit(0);};
     friend std::ostream& operator<<(std::ostream& os, const Matriz& mat);
     
 protected:

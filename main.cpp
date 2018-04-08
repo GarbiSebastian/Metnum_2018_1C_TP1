@@ -10,6 +10,7 @@
 #include "MatrizRala.h"
 #include "constantes.h"
 
+typedef MatrizBasica matriz;
 using namespace std;
 
 unsigned int n;
@@ -19,7 +20,7 @@ vector<double> grados;
 vector<double> D;
 vector<double> z;
 
-Matriz& parsearEntrada(int argc, char** argv) {
+Matriz* parsearEntrada(int argc, char** argv) {
     if (argc < 3) {
         cout << "Deben pasarse los parametros 'archivo' y 'probabilidad'" << endl;
         cout << "Parametros Pasados " << argc << endl;
@@ -37,16 +38,17 @@ Matriz& parsearEntrada(int argc, char** argv) {
     archivoDeEntrada.open(pathEntrada.c_str(), ifstream::in);
     archivoDeEntrada >> n;
     archivoDeEntrada >> m;
-    cout << n << " " << m << endl;
-    static MatrizBasica A(n, n);
+    cout << "paginas: " << n << " links: " << m << endl;
+    MatrizBasica* A = new MatrizBasica(n, n);
+//    MatrizRala A = new MatrizBasica(n, n);
     grados = vector<double>(n, 0);
-    //    static MatrizRala* A = new MatrizRala(n,n);
     unsigned int i, j;
     for (unsigned int _m = 0; _m < m; _m++) {
         archivoDeEntrada >> i;
         archivoDeEntrada >> j;
         grados[i - 1]++;
-        A(j, i, 1);
+        (*A)(j, i, 1);
+        //cout << i << " " << j << endl;
     }
     return A;
 }
@@ -68,19 +70,18 @@ void armarDiagonalyZ() {
     }
 }
 
-Matriz& calcularIpWD(Matriz& W){
-    static MatrizRala IpWD(n,n);
+void calcularIpWD(Matriz* W){
+    MatrizRala* IpWD = new MatrizRala(n,n);
     double valor;
-    cout << "IpWD1 " << endl;
-    W.multiplicaPorDiagonal(D);
-    cout << "IpWD2 " << endl;
-    W*(-p);
-    cout << "IpWD3 " << endl;
+//    cout << "IpWD1 " << endl;
+    W->multiplicaPorDiagonal(D);
+//    cout << "IpWD2 " << endl;
+    (*W)*(-p);
+    cout << *W << endl;
     for (unsigned int i = 1; i <= n; i++) {
-        IpWD(i,i,IpWD(i,i)+1);
-        cout << "IpWD4." << i << endl;
+        (*W)(i,i,(*W)(i,i)+1);
+//        cout << "IpWD4." << i << endl;
     }
-    return IpWD;
 }
 
 void pruebaBS1() {
@@ -331,20 +332,21 @@ int main(int argc, char** argv) {
 //    pruebaMultiplicaPorDiagonal();
     //pruebaMultiplicaPorNumero();
     //exit(0);
-    Matriz W = parsearEntrada(argc, argv);
-    cout << "pasa 1" << endl;
+    Matriz* W = parsearEntrada(argc, argv);
+//    cout << "pasa 1" << endl;
     armarDiagonalyZ();
-    cout << "pasa 2" << endl;
+//    cout << "pasa 2" << endl;
     vector<double> e(n, 1);
-    cout << "pasa 3" << endl;
+//    cout << "pasa 3" << endl;
     vector<double> x(n, 0);
-    cout << "pasa 4" << endl;
-    Matriz IpWD = calcularIpWD(W);
-    cout << "pasa 5" << endl;
-    IpWD.eliminacionGaussiana(e);
-    cout << "pasa 6" << endl;
-    IpWD.backwardSubstitution(e,x);
-    cout << "pasa 7" << endl;
+//    cout << "pasa 4" << endl;
+    calcularIpWD(W);
+    cout << *W << endl;
+//    cout << "pasa 5" << endl;
+    W->eliminacionGaussiana(e);
+//    cout << "pasa 6" << endl;
+    W->backwardSubstitution(e,x);
+//    cout << "pasa 7" << endl;
    
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
