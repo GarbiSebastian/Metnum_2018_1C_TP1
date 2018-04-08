@@ -40,16 +40,18 @@ Matriz& MatrizBasica::set(unsigned int i, unsigned int j, double valor) {
 }
 
 Matriz& MatrizBasica::eliminacionGaussiana(vector<double>& v) {
-    double m_ij, calculo;
-    for (unsigned int j = 1; j <= this->colSize(); j++) {
-        for (unsigned int i = j + 1; i <= this->rowSize(); i++) {
-            m_ij = this->get(i, j) / this->get(j, j);
-            for (unsigned int k = j; k <= this->colSize(); k++) {
-                calculo = this->get(i, k) - m_ij * this->get(j, k);
-                this->set(i, k, calculo);
+    double m_ij,calculo;
+    for(unsigned int j=1; j <= this->colSize(); j++){
+        for(unsigned int i = j+1; i <= this->rowSize();i++){
+            if(this->get(i,j) != 0){
+                m_ij = this->get(i,j)/this->get(j,j);
+                for (unsigned int k = j; k <= this->colSize(); k++) {
+                    calculo = this->get(i,k) - m_ij*this->get(j,k);
+                    this->set(i,k,calculo);
+                }
+                this->set(i,j,0);
+                v[i-1] = v[i-1] - m_ij*v[j-1];
             }
-            this->set(i, j, 0);
-            v[i - 1] = v[i - 1] - m_ij * v[j - 1];
         }
     }
     return *this;

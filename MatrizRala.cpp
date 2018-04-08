@@ -80,14 +80,16 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
     return *this;
 }
 
-//throw 1; si sero en la diagonal
-
 Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
-    double m_ij,calculo;
+    double m_ij,calculo,valor_j_j,valor_i_j;
     for(unsigned int j=1; j <= std::min(this->colSize(),this->rowSize()); j++){
+        valor_j_j = this->get(j,j);
+        if(this->get(j,j) == 0) throw 4;
+        
         for(unsigned int i = j+1; i <= this->rowSize();i++){
-            if(this->get(j,j) != 0){
-                m_ij = this->get(i,j)/this->get(j,j);
+            valor_i_j = this->get(i,j);
+            if(valor_i_j != 0){
+                m_ij = valor_i_j/valor_j_j;
                 for (auto& elem : this->_matriz[j-1]) {//Le resto uno porque estoy trabajando con la matriz directamente
                     int k = elem.first;
                     calculo = this->get(i,k) - m_ij*elem.second;
@@ -95,8 +97,6 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
                 }
                 //this->set(i,j,0);//No es necesario hacer esto
                 v[i-1] = v[i-1] - m_ij*v[j-1];
-            } else { 
-                throw 4;
             }
         }
     }
