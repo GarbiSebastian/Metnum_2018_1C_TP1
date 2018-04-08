@@ -91,7 +91,6 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
         if (valor_j_j == 0) throw 4;
 
         for (unsigned int i = j + 1; i <= this->_rows; i++) {
-            cout << i << " " << j << endl;
             valor_i_j = this->get(i, j);
             if (valor_i_j != 0) {
                 m_ij = valor_i_j / valor_j_j;

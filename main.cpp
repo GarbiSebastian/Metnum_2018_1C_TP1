@@ -10,8 +10,8 @@
 #include "MatrizRala.h"
 #include "constantes.h"
 
-//typedef MatrizBasica matriz;
-typedef MatrizRala matriz;
+typedef MatrizBasica matriz;
+//typedef MatrizRala matriz;
 using namespace std;
 
 unsigned int n;
@@ -338,20 +338,44 @@ void pruebaNormalizar(){
 }
 
 int main(int argc, char** argv) {
+    double tiempo;
+    clock_t t_a = clock();
     Matriz* W = parsearEntrada(argc, argv);
-    cout << "parseada" << endl;
+    clock_t t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "parseada " << tiempo <<  endl;
     armarDiagonalyZ();
-    cout << "diaginbal" << endl;
+    t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "diagonal " << tiempo << endl;
     vector<double> e(n, 1);
     vector<double> x(n, 0);
-    cout << "vecotres e y x" << endl;
+    t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "vecotres e y x " << tiempo << endl;
     calcularIpWD(W);
-    cout << "IpWD" << endl;
+    t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "IpWD " << tiempo << endl;
     W->eliminacionGaussiana(e);
-    cout << "EG" << endl;
+    t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "EG " << tiempo << endl;
     W->backwardSubstitution(e,x);
-    cout << "BS" << endl;
+    t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "BS " << tiempo << endl;
     normalizar(x);
+    t_b = clock();
+    tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+    t_a = t_b;
+    cout << "normalizar " << tiempo << endl;
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
     cout << "Archivo de salida: " << nombreArchivoSalida << endl;
