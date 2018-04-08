@@ -97,6 +97,7 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
                 m_ij = valor_i_j / valor_j_j;
                 for (auto& elem : this->_matriz[j - 1]) {//Le resto uno porque estoy trabajando con la matriz directamente
                     int k = elem.first;
+                    assert(k>=j);
                     calculo = this->get(i, k) - m_ij * elem.second;
                     this->set(i, k, calculo);
                 }
