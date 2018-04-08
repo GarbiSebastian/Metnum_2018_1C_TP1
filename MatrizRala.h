@@ -27,6 +27,8 @@ public:
     void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) override;
     Matriz& multiplicaPorDiagonal(const std::vector<double>& D) override;
     Matriz& operator*(double lambda) override;
+    double operator()(unsigned int i, unsigned int j) const override;
+    Matriz& operator()(unsigned int i, unsigned int j, double valor) override;
 protected:
     matRala _matriz;
 private:

@@ -10,15 +10,19 @@
 #include "MatrizRala.h"
 #include "constantes.h"
 
-typedef MatrizBasica matriz;
+//typedef MatrizBasica matriz;
+typedef MatrizRala matriz;
 using namespace std;
 
 unsigned int n;
-unsigned int m;
 double p;
 vector<double> grados;
 vector<double> D;
 vector<double> z;
+
+void imprimirVector(const vector<double>& x, ostream &os){
+    for (auto elem : x)os << elem << "\t"; os << endl;
+}
 
 Matriz* parsearEntrada(int argc, char** argv) {
     if (argc < 3) {
@@ -32,23 +36,21 @@ Matriz* parsearEntrada(int argc, char** argv) {
         cout << "La probabilidad debe ser un double positivo entre 0 y 1" << endl;
         exit(0);
     }
-    cout << pathEntrada << endl;
-    cout << p << endl;
+    unsigned int i, j, m;
+    cout << "Archivo de entrada: " << pathEntrada << endl;
+    cout << "Probabilidad de navegante aleatorio: "<< p << endl;
     ifstream archivoDeEntrada;
     archivoDeEntrada.open(pathEntrada.c_str(), ifstream::in);
     archivoDeEntrada >> n;
     archivoDeEntrada >> m;
-    cout << "paginas: " << n << " links: " << m << endl;
-    MatrizBasica* A = new MatrizBasica(n, n);
-//    MatrizRala A = new MatrizBasica(n, n);
+    cout << "Cantidad de páginas: " << n << endl << "Cantidad de links: " << m << endl;
+    Matriz* A = new matriz(n, n);
     grados = vector<double>(n, 0);
-    unsigned int i, j;
     for (unsigned int _m = 0; _m < m; _m++) {
         archivoDeEntrada >> i;
         archivoDeEntrada >> j;
         grados[i - 1]++;
         (*A)(j, i, 1);
-        //cout << i << " " << j << endl;
     }
     return A;
 }
@@ -71,16 +73,11 @@ void armarDiagonalyZ() {
 }
 
 void calcularIpWD(Matriz* W){
-    MatrizRala* IpWD = new MatrizRala(n,n);
     double valor;
-//    cout << "IpWD1 " << endl;
     W->multiplicaPorDiagonal(D);
-//    cout << "IpWD2 " << endl;
     (*W)*(-p);
-    cout << *W << endl;
     for (unsigned int i = 1; i <= n; i++) {
         (*W)(i,i,(*W)(i,i)+1);
-//        cout << "IpWD4." << i << endl;
     }
 }
 
@@ -321,36 +318,43 @@ void pruebaMultiplicaPorNumero(){
     cout << "Rala" << endl << B*lambda << endl;
 }
 
+void normalizar(vector<double>& x){
+    double norma=0;
+    for (auto& elem : x) {
+        norma+= elem;
+    }
+    for (unsigned int i = 0; i < x.size(); i++) {
+        x[i]=x[i]/norma;
+    }
+}
+
+void pruebaNormalizar(){
+    vector<double> x(5,1);
+    normalizar(x);
+    imprimirVector(x,cout);
+    x = vector<double>(5,2);
+    normalizar(x);
+    imprimirVector(x,cout);    
+}
+
 int main(int argc, char** argv) {
-    //    pruebaBS1();
-    //    pruebaBS2();
-    //    pruebaBS3();
-    //    pruebaBS4();
-    //    pruebaBSConTiempo(10000);
-    //    exit(0);
-    //    pruebasEliminacionGaussiana();
-//    pruebaMultiplicaPorDiagonal();
-    //pruebaMultiplicaPorNumero();
-    //exit(0);
     Matriz* W = parsearEntrada(argc, argv);
-//    cout << "pasa 1" << endl;
+    cout << "parseada" << endl;
     armarDiagonalyZ();
-//    cout << "pasa 2" << endl;
+    cout << "diaginbal" << endl;
     vector<double> e(n, 1);
-//    cout << "pasa 3" << endl;
     vector<double> x(n, 0);
-//    cout << "pasa 4" << endl;
+    cout << "vecotres e y x" << endl;
     calcularIpWD(W);
-    cout << *W << endl;
-//    cout << "pasa 5" << endl;
+    cout << "IpWD" << endl;
     W->eliminacionGaussiana(e);
-//    cout << "pasa 6" << endl;
+    cout << "EG" << endl;
     W->backwardSubstitution(e,x);
-//    cout << "pasa 7" << endl;
-   
+    cout << "BS" << endl;
+    normalizar(x);
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
-    cout << nombreArchivoSalida << endl;
+    cout << "Archivo de salida: " << nombreArchivoSalida << endl;
     ofstream archivoSalida(nombreArchivoSalida.c_str(), ofstream::out);
     archivoSalida << p << endl;
     for (unsigned int i = 0; i < n; i++) {
@@ -358,4 +362,3 @@ int main(int argc, char** argv) {
     }
     return 0;
 }
-

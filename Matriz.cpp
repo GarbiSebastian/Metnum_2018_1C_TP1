@@ -42,12 +42,3 @@ std::ostream& operator <<(std::ostream& os, const Matriz& mat){
     }
     return os;
 }
-
-double Matriz::operator ()(unsigned int i, unsigned int j) const{
-    return this->get(i,j);
-}
-
-Matriz& Matriz::operator ()(unsigned int i, unsigned int j, double valor){
-    this->set(i,j,valor);
-    return *this;
-}

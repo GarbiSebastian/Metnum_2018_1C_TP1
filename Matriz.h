@@ -19,8 +19,8 @@ public:
     
     virtual Matriz& multiplicaPorDiagonal(const std::vector<double>& D){std::cout << "MPD" << std::endl; exit(0);};
 
-    double operator()(unsigned int i, unsigned int j) const; 
-    Matriz& operator()(unsigned int i, unsigned int j, double valor);
+    virtual double operator()(unsigned int i, unsigned int j) const{}; 
+    virtual Matriz& operator()(unsigned int i, unsigned int j, double valor){};
     virtual Matriz& operator+(const Matriz& m2);
     virtual Matriz& operator*(double lambda){std::cout << "*" << std::endl; exit(0);};
     friend std::ostream& operator<<(std::ostream& os, const Matriz& mat);

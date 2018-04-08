@@ -13,16 +13,16 @@ MatrizRala::MatrizRala(unsigned int rows, unsigned int cols) {
 }
 
 MatrizRala::MatrizRala(unsigned int rows, unsigned int cols, double valorInicial) {
-    this->initialize(rows,cols);
+    this->initialize(rows, cols);
     this->_matriz = matRala(rows, mapDato());
 }
 
 MatrizRala::MatrizRala(const MatrizRala& orig) : Matriz(orig) {
-    unsigned int rows = orig.rowSize(),cols=orig.colSize();
-    this->initialize(rows,cols);
-    this->_matriz = matRala(this->rowSize(), mapDato());
+    unsigned int rows = orig.rowSize(), cols = orig.colSize();
+    this->initialize(rows, cols);
+    this->_matriz = matRala(this->_rows, mapDato());
     insertResult ret;
-    for (unsigned int i = 0; i < this->rowSize(); i++) {
+    for (unsigned int i = 0; i < this->_rows; i++) {
         for (auto& datoOrig : orig._matriz[i]) {
             ret = this->_matriz[i].insert(parDato(datoOrig)); //hago una copia del par
             if (ret.second == false) {//existe la clave
@@ -36,8 +36,8 @@ MatrizRala::~MatrizRala() {
 }
 
 double MatrizRala::get(unsigned int i, unsigned int j) const {
-    assert(i <= this->rowSize());
-    assert(j <= this->colSize());
+    assert(i <= this->_rows);
+    assert(j <= this->_cols);
     try {
         return this->_matriz[i - 1].at(j);
     } catch (const std::out_of_range& e) {
@@ -46,8 +46,8 @@ double MatrizRala::get(unsigned int i, unsigned int j) const {
 }
 
 Matriz& MatrizRala::set(unsigned int i, unsigned int j, double valor) {
-    assert(i <= this->rowSize());
-    assert(j <= this->colSize());
+    assert(i <= this->_rows);
+    assert(j <= this->_cols);
     if (fabs(valor) >= epsilon) {
         insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
         if (res.second == false) {//existe la clave
@@ -64,7 +64,7 @@ Matriz& MatrizRala::operator+(const Matriz& mat) {
 }
 
 MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
-    for (unsigned int i = 0; i < this->rowSize(); i++) {
+    for (unsigned int i = 0; i < this->_rows; i++) {
         for (auto& elem : this->_matriz[i]) {//Sumo los que si estan
             double suma = elem.second + mat(i + 1, elem.first);
             if (fabs(suma) < epsilon) {
@@ -86,11 +86,12 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
 
 Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
     double m_ij, calculo, valor_j_j, valor_i_j;
-    for (unsigned int j = 1; j <= std::min(this->colSize(), this->rowSize()); j++) {
+    for (unsigned int j = 1; j <= std::min(this->_cols, this->_rows); j++) {
         valor_j_j = this->get(j, j);
-        if (this->get(j, j) == 0) throw 4;
+        if (valor_j_j == 0) throw 4;
 
-        for (unsigned int i = j + 1; i <= this->rowSize(); i++) {
+        for (unsigned int i = j + 1; i <= this->_rows; i++) {
+            cout << i << " " << j << endl;
             valor_i_j = this->get(i, j);
             if (valor_i_j != 0) {
                 m_ij = valor_i_j / valor_j_j;
@@ -108,7 +109,7 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
 }
 
 void MatrizRala::backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) {
-    unsigned int tam = this->colSize(), j;
+    unsigned int tam = this->_cols, j;
     double suma_parcial, div;
     for (unsigned int i = tam; i > 0; i--) {
         div = this->get(i, i);
@@ -130,8 +131,7 @@ void MatrizRala::backwardSubstitution(const std::vector<double>& b, std::vector<
 }
 
 Matriz& MatrizRala::multiplicaPorDiagonal(const std::vector<double>& D) {
-    std::cout << "mult rala " << std::endl;
-    for (unsigned int i = 0; i < this->rowSize(); i++) {
+    for (unsigned int i = 0; i < this->_rows; i++) {
         for (auto& elem : this->_matriz[i]) {
             elem.second *= D[elem.first - 1];
         }
@@ -140,10 +140,34 @@ Matriz& MatrizRala::multiplicaPorDiagonal(const std::vector<double>& D) {
 }
 
 Matriz& MatrizRala::operator*(double lambda) {
-    for (unsigned int i = 0; i < this->rowSize(); i++) {
+    for (unsigned int i = 0; i < this->_rows; i++) {
         for (auto& elem : this->_matriz[i]) {
             elem.second = elem.second*lambda;
         }
+    }
+    return *this;
+}
+
+double MatrizRala::operator()(unsigned int i, unsigned int j) const {
+    assert(i <= this->_rows);
+    assert(j <= this->_cols);
+    try {
+        return this->_matriz[i - 1].at(j);
+    } catch (const std::out_of_range& e) {
+        return 0;
+    }
+}
+
+Matriz& MatrizRala::operator()(unsigned int i, unsigned int j, double valor) {
+    assert(i <= this->_rows);
+    assert(j <= this->_cols);
+    if (fabs(valor) >= epsilon) {
+        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
+        if (res.second == false) {//existe la clave
+            res.first->second = valor; //actualizo el valor
+        }
+    } else {
+        this->_matriz[i - 1].erase(j);
     }
     return *this;
 }
