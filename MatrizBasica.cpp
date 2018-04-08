@@ -6,15 +6,19 @@
 
 using namespace std;
 
-MatrizBasica::MatrizBasica(unsigned int rows, unsigned int cols) : Matriz(rows, cols) {
+MatrizBasica::MatrizBasica(unsigned int rows, unsigned int cols) {
+    this->initialize(rows,cols);
     this->_matriz = matBas(rows, vectorBas(cols, 0.0));
 }
 
-MatrizBasica::MatrizBasica(unsigned int rows, unsigned int cols, double valorInicial) : Matriz(rows, cols, valorInicial) {
+MatrizBasica::MatrizBasica(unsigned int rows, unsigned int cols, double valorInicial) {
+    this->initialize(rows,cols);
     this->_matriz = matBas(rows, vectorBas(cols, valorInicial));
 }
 
-MatrizBasica::MatrizBasica(const MatrizBasica& orig) : Matriz(orig) {
+MatrizBasica::MatrizBasica(const MatrizBasica& orig) {
+    unsigned int rows = orig.rowSize(),cols=orig.colSize();
+    this->initialize(rows,cols);
     this->_matriz = matBas(this->rowSize(), vectorBas(this->colSize(), 0.0));
     for (unsigned int i = 1; i <= this->rowSize(); i++) {
         for (unsigned int j = 1; j <= this->colSize(); j++) {
