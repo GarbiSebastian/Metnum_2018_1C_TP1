@@ -124,3 +124,23 @@ void MatrizRala::backwardSubstitution(const std::vector<double>& b, std::vector<
         x[i-1] = b[i-1]/div - suma_parcial;
     }
 }
+
+Matriz& MatrizRala::multiplicaPorDiagonal(const std::vector<double>& D) {
+    std::cout << "mult rala " <<std::endl;
+    for (unsigned int i = 0; i < this->rowSize(); i++) {
+        for (auto& elem : this->_matriz[i]) {
+            elem.second*=D[elem.first-1];
+        }
+    }
+    return *this;
+}
+
+Matriz& MatrizRala::operator*(double lambda) {
+    for (unsigned int i = 0; i < this->rowSize(); i++) {
+        for (auto& elem : this->_matriz[i]) {
+            elem.second = elem.second*lambda;
+        }
+    }
+    return *this;
+}
+

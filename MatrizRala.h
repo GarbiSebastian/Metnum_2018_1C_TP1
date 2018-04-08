@@ -25,7 +25,8 @@ public:
     MatrizRala& operator +(const MatrizRala& mat);
     Matriz& eliminacionGaussiana(vector<double>& v) override;
     void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) override;
-
+    Matriz& multiplicaPorDiagonal(const std::vector<double>& D) override;
+    Matriz& operator*(double lambda) override;
 protected:
     matRala _matriz;
 private:

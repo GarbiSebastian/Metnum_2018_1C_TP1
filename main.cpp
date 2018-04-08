@@ -40,7 +40,7 @@ Matriz& parsearEntrada(int argc, char** argv) {
     cout << n << " " << m << endl;
     static MatrizBasica A(n, n);
     grados = vector<double>(n, 0);
-    //    MatrizRala* A = new MatrizRala(n,n);
+    //    static MatrizRala* A = new MatrizRala(n,n);
     unsigned int i, j;
     for (unsigned int _m = 0; _m < m; _m++) {
         archivoDeEntrada >> i;
@@ -68,47 +68,19 @@ void armarDiagonalyZ() {
     }
 }
 
-void prueba1() {
-    n = 10;
-    MatrizBasica A1(n, n, 0);
-    MatrizBasica A2(n, n, 0);
-    MatrizRala B1(n, n, 0);
-    MatrizRala B2(n, n, 0);
-    MatrizRala B3(n, n, 0);
-
-    for (unsigned int k = 0; k < n * n; k++) {
-        unsigned int i = ceil(k / n) + 1;
-        unsigned int j = (k % n) + 1;
-        A1(i, j, k);
-        A2(i, j, -k);
-        B1(i, j, k);
-        B2(i, j, -k);
+Matriz& calcularIpWD(Matriz& W){
+    static MatrizRala IpWD(n,n);
+    double valor;
+    cout << "IpWD1 " << endl;
+    W.multiplicaPorDiagonal(D);
+    cout << "IpWD2 " << endl;
+    W*(-p);
+    cout << "IpWD3 " << endl;
+    for (unsigned int i = 1; i <= n; i++) {
+        IpWD(i,i,IpWD(i,i)+1);
+        cout << "IpWD4." << i << endl;
     }
-
-    auto start1 = chrono::steady_clock::now();
-    A1 + A2;
-    auto end1 = chrono::steady_clock::now();
-    auto diff1 = end1 - start1;
-
-    auto start2 = chrono::steady_clock::now();
-    B1 + B2;
-    auto end2 = chrono::steady_clock::now();
-    auto diff2 = end2 - start2;
-
-    auto start3 = chrono::steady_clock::now();
-    A1 + B2;
-    auto end3 = chrono::steady_clock::now();
-    auto diff3 = end3 - start3;
-
-    auto start4 = chrono::steady_clock::now();
-    B1 + A2;
-    auto end4 = chrono::steady_clock::now();
-    auto diff4 = end4 - start4;
-
-    cout << "A1+A2 " << chrono::duration <double, milli> (diff1).count() << " ms" << endl;
-    cout << "B1+B2 " << chrono::duration <double, milli> (diff2).count() << " ms" << endl;
-    cout << "A1+B2 " << chrono::duration <double, milli> (diff3).count() << " ms" << endl;
-    cout << "B1+A2 " << chrono::duration <double, milli> (diff4).count() << " ms" << endl;
+    return IpWD;
 }
 
 void pruebaBS1() {
@@ -312,6 +284,42 @@ void pruebasEliminacionGaussiana() {
     system("Pause");
 }
 
+void pruebaMultiplicaPorDiagonal(){
+    unsigned int mi_n = 3;
+    MatrizBasica A(mi_n,mi_n);
+    MatrizRala   B(mi_n,mi_n);
+    unsigned int k=1;
+    for (int i = 0; i < mi_n; i++) {
+        for (int j = 0; j < mi_n; j++) {
+            A(i+1,j+1,k);
+            B(i+1,j+1,k);
+            k++;
+        }
+    }
+    vector<double> D(mi_n,2);
+    D[1]=3;
+    D[2]=1;
+    cout << "Basica " << endl << A.multiplicaPorDiagonal(D) << endl;
+    cout << "Rala" << endl << B.multiplicaPorDiagonal(D);
+}
+
+void pruebaMultiplicaPorNumero(){
+    unsigned int mi_n = 3;
+    MatrizBasica A(mi_n,mi_n);
+    MatrizRala   B(mi_n,mi_n);
+    unsigned int k=1;
+    for (int i = 0; i < mi_n; i++) {
+        for (int j = 0; j < mi_n; j++) {
+            A(i+1,j+1,k);
+            B(i+1,j+1,k);
+            k++;
+        }
+    }
+    double lambda = -5;
+    cout << "Basica " << endl << A*lambda << endl;
+    cout << "Rala" << endl << B*lambda << endl;
+}
+
 int main(int argc, char** argv) {
     //    pruebaBS1();
     //    pruebaBS2();
@@ -319,18 +327,32 @@ int main(int argc, char** argv) {
     //    pruebaBS4();
     //    pruebaBSConTiempo(10000);
     //    exit(0);
-    pruebasEliminacionGaussiana();
+    //    pruebasEliminacionGaussiana();
+//    pruebaMultiplicaPorDiagonal();
+    //pruebaMultiplicaPorNumero();
+    //exit(0);
     Matriz W = parsearEntrada(argc, argv);
+    cout << "pasa 1" << endl;
     armarDiagonalyZ();
+    cout << "pasa 2" << endl;
     vector<double> e(n, 1);
-    //Matriz R = W*D;
+    cout << "pasa 3" << endl;
+    vector<double> x(n, 0);
+    cout << "pasa 4" << endl;
+    Matriz IpWD = calcularIpWD(W);
+    cout << "pasa 5" << endl;
+    IpWD.eliminacionGaussiana(e);
+    cout << "pasa 6" << endl;
+    IpWD.backwardSubstitution(e,x);
+    cout << "pasa 7" << endl;
+   
     string extension = ".out";
     string nombreArchivoSalida = argv[1] + extension;
     cout << nombreArchivoSalida << endl;
     ofstream archivoSalida(nombreArchivoSalida.c_str(), ofstream::out);
     archivoSalida << p << endl;
-    for (unsigned int i = 1; i <= n; i++) {
-        archivoSalida << "algo" << endl;
+    for (unsigned int i = 0; i < n; i++) {
+        archivoSalida << x[i] << endl;
     }
     return 0;
 }
