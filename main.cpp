@@ -10,8 +10,8 @@
 #include "MatrizRala.h"
 #include "constantes.h"
 
-typedef MatrizBasica matriz;
-//typedef MatrizRala matriz;
+//typedef MatrizBasica matriz;
+typedef MatrizRala matriz;
 using namespace std;
 
 unsigned int n;
@@ -155,6 +155,10 @@ void pruebaBS4() {
     cout << "]" << endl << "x | Ax=b: [ ";
     for (auto elem : x) cout << elem << " ";
     cout << "]" << endl;
+}
+
+void pruebaBS5(){
+    
 }
 
 void pruebaBSConTiempo(unsigned int n) {
@@ -338,6 +342,11 @@ void pruebaNormalizar(){
 }
 
 int main(int argc, char** argv) {
+//    pruebaBS1();
+//    pruebaBS2();
+//    pruebaBS3();
+//    pruebaBS4();
+//    exit(0);
     double tiempo;
     clock_t t_a = clock();
     Matriz* W = parsearEntrada(argc, argv);
@@ -361,7 +370,11 @@ int main(int argc, char** argv) {
     tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
     t_a = t_b;
     cout << "IpWD " << tiempo << endl;
+//    try{    
     W->eliminacionGaussiana(e);
+//    }catch(int a){
+//        cout << endl << "explota por los aires " << a << endl;exit(0);
+//    }
     t_b = clock();
     tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
     t_a = t_b;
