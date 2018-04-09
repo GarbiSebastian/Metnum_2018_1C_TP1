@@ -50,10 +50,11 @@ Matriz& MatrizRala::set(unsigned int i, unsigned int j, double valor) {
     assert(i <= this->_rows);
     assert(j <= this->_cols);
     if (fabs(valor) >= epsilon) {
-        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
-        if (res.second == false) {//existe la clave
-            res.first->second = valor; //actualizo el valor
-        }
+        this->_matriz[i - 1][j]=valor;
+//        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
+//        if (res.second == false) {//existe la clave
+//            res.first->second = valor; //actualizo el valor
+//        }
     } else {
         this->_matriz[i - 1].erase(j);
     }
