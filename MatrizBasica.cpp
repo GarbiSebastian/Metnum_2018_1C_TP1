@@ -46,6 +46,7 @@ Matriz& MatrizBasica::set(unsigned int i, unsigned int j, double valor) {
 Matriz& MatrizBasica::eliminacionGaussiana(vector<double>& v) {
     double m_ij, calculo;
     for (unsigned int j = 1; j <= this->colSize(); j++) {
+//        cout << endl << j << endl << *this << endl;
         for (unsigned int i = j + 1; i <= this->rowSize(); i++) {
             if (this->get(i, j) != 0) {
                 m_ij = this->get(i, j) / this->get(j, j);

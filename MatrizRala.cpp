@@ -4,6 +4,7 @@
 #include "MatrizRala.h"
 #include "constantes.h"
 #include <vector>
+#include <complex>
 
 using namespace std;
 
@@ -85,24 +86,48 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
 }
 
 Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
-    double m_ij, calculo, valor_j_j, valor_i_j;
+    double m_ij, calculo, ajj, aij;
     for (unsigned int j = 1; j <= std::min(this->_cols, this->_rows); j++) {
-        valor_j_j = this->get(j, j);
-        if (valor_j_j == 0) throw 4;
+//        cout << j << endl << *this << endl << endl;
+        mapDato::iterator j_it = this->_matriz[j - 1].begin();
+        mapDato::iterator j_fin = this->_matriz[j - 1].end();
+        assert((*j_it).first == j); //Asumo que se puede hace EG sin pivoteo entonces la diagonal en j debe estar definida y para la fila j ya esta
+        ajj = (*j_it).second;
+        if (ajj == 0) throw 4;
+        ++j_it;
 
         for (unsigned int i = j + 1; i <= this->_rows; i++) {
-            valor_i_j = this->get(i, j);
-            if (valor_i_j != 0) {
-                m_ij = valor_i_j / valor_j_j;
-                for (auto& elem : this->_matriz[j - 1]) {//Le resto uno porque estoy trabajando con la matriz directamente
-                    int k = elem.first;
-                    assert(k>=j);
-                    calculo = this->get(i, k) - m_ij * elem.second;
-                    this->set(i, k, calculo);
+            mapDato::iterator i_it = this->_matriz[i - 1].begin();
+            mapDato::iterator i_fin = this->_matriz[i - 1].end();
+            assert((*i_it).first >= j); //todas las filas por debajo de la j deberían tener 0 hasta la posición j-1
+
+            if ((*i_it).first == j) {//la j-esima columna de la fila i no es 0
+                aij = (*i_it).second;
+                m_ij = aij / ajj;
+                i_it=this->_matriz[i - 1].erase(i_it); //seteo 0 en la posicion aij
+                mapDato::iterator k_it = j_it;
+                while (k_it != j_fin) {
+                    //                    cout << (*k_it).first << " " << (*k_it).second << endl;
+                    int k = (*k_it).first;
+                    while (i_it != i_fin && (*i_it).first < k) {
+//                        cout << "i: " << i << " j: " << j << " k: " << k << endl;
+                        ++i_it; //avanzo el iterador hasta una posición que se vaya a modificar
+                    }
+                    if ((*i_it).first == k) {//había un dato en la posición aik
+                        calculo = (*i_it).second - m_ij * (*k_it).second;
+                        if (fabs(calculo) < epsilon) {
+                            i_it = this->_matriz[i - 1].erase(i_it);
+                        } else {
+                            (*i_it).second = calculo;
+                        }
+                    } else {
+                        calculo = -m_ij * (*k_it).second; // m_ij != 0 , (*k_it).second != 0 => calculo != 0
+                        this->set(i, k, calculo);
+                    }
+                    ++k_it;
                 }
-                //this->set(i,j,0);//No es necesario hacer esto
-                v[i - 1] = v[i - 1] - m_ij * v[j - 1];
             }
+            v[i - 1] = v[i - 1] - m_ij * v[j - 1];
         }
     }
     return *this;
@@ -123,9 +148,6 @@ void MatrizRala::backwardSubstitution(const std::vector<double>& b, std::vector<
                 suma_parcial += x[j - 1]*(elem.second) / div;
             }
         }
-        //        for (unsigned int j = i+1; j <= tam; j++) {
-        //            suma_parcial += x[j-1]*this->get(i,j)/div;
-        //        }
         x[i - 1] = b[i - 1] / div - suma_parcial;
     }
 }

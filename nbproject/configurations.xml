@@ -42,6 +42,9 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <standard>10</standard>
+        </cTool>
         <ccTool>
           <standard>8</standard>
         </ccTool>
