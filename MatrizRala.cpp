@@ -126,8 +126,8 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
                     }
                     ++k_it;
                 }
+                v[i - 1] = v[i - 1] - m_ij * v[j - 1];
             }
-            v[i - 1] = v[i - 1] - m_ij * v[j - 1];
         }
     }
     return *this;
