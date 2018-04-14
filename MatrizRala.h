@@ -8,9 +8,9 @@
 
 using namespace std;
 
-typedef map<int,double> mapDato;
+typedef map<unsigned int,double> mapDato;
 typedef vector<mapDato> matRala;
-typedef pair<int,double> parDato;
+typedef pair<unsigned int,double> parDato;
 typedef pair<mapDato::iterator,bool> insertResult;
 
 class MatrizRala : public Matriz{

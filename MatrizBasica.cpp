@@ -2,7 +2,9 @@
 #include <cassert>
 #include "MatrizBasica.h"
 #include "Matriz.h"
+#include "constantes.h"
 #include <vector>
+#include <complex>
 
 using namespace std;
 
@@ -44,18 +46,25 @@ Matriz& MatrizBasica::set(unsigned int i, unsigned int j, double valor) {
 }
 
 Matriz& MatrizBasica::eliminacionGaussiana(vector<double>& v) {
-    double m_ij, calculo;
-    for (unsigned int j = 1; j <= this->colSize(); j++) {
-//        cout << endl << j << endl << *this << endl;
-        for (unsigned int i = j + 1; i <= this->rowSize(); i++) {
-            if (this->get(i, j) != 0) {
-                m_ij = this->get(i, j) / this->get(j, j);
-                for (unsigned int k = j; k <= this->colSize(); k++) {
-                    calculo = this->get(i, k) - m_ij * this->get(j, k);
-                    this->set(i, k, calculo);
+    double m_ij, calculo, a_ij, a_jj;
+    unsigned int cols = this->_cols, rows = this->_rows;
+
+    for (unsigned int j = 0; j < cols; j++) {
+        //        cout << endl << j << endl << *this << endl;
+        a_jj = this->_matriz[j][j];
+        for (unsigned int i = j + 1; i < rows; i++) {
+            a_ij = this->_matriz[i][j];
+            if (fabs(a_ij) > epsilon) {//if a_ij != 0
+                m_ij = a_ij / a_jj;
+                for (unsigned int k = j; k < cols; k++) {
+                    calculo = this->_matriz[i][k] - m_ij * this->_matriz[j][k];
+                    this->_matriz[i][k] = calculo;
+                    //this->set(i, k, calculo);
                 }
-                this->set(i, j, 0);
-                v[i - 1] = v[i - 1] - m_ij * v[j - 1];
+                this->_matriz[i][j] = 0;
+                //                this->set(i, j, 0);
+                //                v[i - 1] = v[i - 1] - m_ij * v[j - 1];
+                v[i] = v[i] - m_ij * v[j];
             }
         }
     }
