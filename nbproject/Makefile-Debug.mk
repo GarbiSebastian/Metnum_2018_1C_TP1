@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/MatrizBasica.o \
 	${OBJECTDIR}/MatrizRala.o \
 	${OBJECTDIR}/MatrizRalaUnordered.o \
+	${OBJECTDIR}/MatrizRalaVectores.o \
 	${OBJECTDIR}/main.o
 
 
@@ -85,6 +86,11 @@ ${OBJECTDIR}/MatrizRalaUnordered.o: MatrizRalaUnordered.cpp nbproject/Makefile-$
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizRalaUnordered.o MatrizRalaUnordered.cpp
+
+${OBJECTDIR}/MatrizRalaVectores.o: MatrizRalaVectores.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizRalaVectores.o MatrizRalaVectores.cpp
 
 ${OBJECTDIR}/main.o: main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
