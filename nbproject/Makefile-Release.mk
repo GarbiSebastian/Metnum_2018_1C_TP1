@@ -70,22 +70,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/metnum_2018_1c_tp1: ${OBJECTFILES}
 ${OBJECTDIR}/Matriz.o: Matriz.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Matriz.o Matriz.cpp
+	$(COMPILE.cc) -g -O -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Matriz.o Matriz.cpp
 
 ${OBJECTDIR}/MatrizBasica.o: MatrizBasica.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizBasica.o MatrizBasica.cpp
+	$(COMPILE.cc) -g -O -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizBasica.o MatrizBasica.cpp
 
 ${OBJECTDIR}/MatrizRala.o: MatrizRala.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizRala.o MatrizRala.cpp
+	$(COMPILE.cc) -g -O -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizRala.o MatrizRala.cpp
 
 ${OBJECTDIR}/MatrizRalaUnordered.o: MatrizRalaUnordered.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizRalaUnordered.o MatrizRalaUnordered.cpp
+	$(COMPILE.cc) -g -O -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MatrizRalaUnordered.o MatrizRalaUnordered.cpp
 
 ${OBJECTDIR}/MatrizRalaVectores.o: MatrizRalaVectores.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -95,7 +95,7 @@ ${OBJECTDIR}/MatrizRalaVectores.o: MatrizRalaVectores.cpp
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -O -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
