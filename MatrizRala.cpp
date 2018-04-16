@@ -18,21 +18,6 @@ MatrizRala::MatrizRala(unsigned int rows, unsigned int cols, double valorInicial
     this->_matriz = matRala(rows, mapDato());
 }
 
-MatrizRala::MatrizRala(const MatrizRala& orig) : Matriz(orig) {
-    unsigned int rows = orig.rowSize(), cols = orig.colSize();
-    this->initialize(rows, cols);
-    this->_matriz = matRala(this->_rows, mapDato());
-    insertResult ret;
-    for (unsigned int i = 0; i < this->_rows; i++) {
-        for (auto& datoOrig : orig._matriz[i]) {
-            ret = this->_matriz[i].insert(parDato(datoOrig)); //hago una copia del par
-            if (ret.second == false) {//existe la clave
-                ret.first->second = datoOrig.second; //actualizo el valor
-            }
-        }
-    }
-}
-
 MatrizRala::~MatrizRala() {
 }
 
@@ -50,11 +35,11 @@ Matriz& MatrizRala::set(unsigned int i, unsigned int j, double valor) {
     assert(i <= this->_rows);
     assert(j <= this->_cols);
     if (fabs(valor) >= epsilon) {
-        this->_matriz[i - 1][j]=valor;
-//        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
-//        if (res.second == false) {//existe la clave
-//            res.first->second = valor; //actualizo el valor
-//        }
+        this->_matriz[i - 1][j] = valor;
+        //        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
+        //        if (res.second == false) {//existe la clave
+        //            res.first->second = valor; //actualizo el valor
+        //        }
     } else {
         this->_matriz[i - 1].erase(j);
     }
@@ -78,7 +63,7 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
         for (auto& elem : mat._matriz[i]) {//para todos los que estan en la segunda matriz
             if (fabs(elem.second) >= epsilon) {
                 this->_matriz[i].insert(parDato(elem)); // trato de insertar el elemento en la primera
-                //si tiene éxito es porque no estaba en la matriz (corresponde 0+ elem.second) 
+                //si tiene éxito es porque no estaba en la matriz (corresponde 0+ elem.second)
                 //si falla había que sumarlo y eso se hizo en el primer for
             }
         }
@@ -88,12 +73,12 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
 
 Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
     double m_ij, calculo, ajj, aij;
-    mapDato::iterator j_it,j_fin,i_it,i_fin,k_it;
+    mapDato::iterator j_it, j_fin, i_it, i_fin, k_it;
     matRala* mat = &(this->_matriz);
     for (unsigned int j = 1; j <= std::min(this->_cols, this->_rows); j++) {
         j_it = (*mat)[j - 1].begin();
         j_fin = (*mat)[j - 1].end();
-//        assert((*j_it).first == j); //Asumo que se puede hace EG sin pivoteo entonces la diagonal en j debe estar definida y para la fila j ya esta
+        //        assert((*j_it).first == j); //Asumo que se puede hace EG sin pivoteo entonces la diagonal en j debe estar definida y para la fila j ya esta
         ajj = (*j_it).second;
         if (ajj == 0) throw 4;
         ++j_it;
@@ -101,19 +86,19 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
         for (unsigned int i = j + 1; i <= this->_rows; i++) {
             i_it = (*mat)[i - 1].begin();
             i_fin = (*mat)[i - 1].end();
-//            assert((*i_it).first >= j); //todas las filas por debajo de la j deberían tener 0 hasta la posición j-1
+            //            assert((*i_it).first >= j); //todas las filas por debajo de la j deberían tener 0 hasta la posición j-1
 
             if ((*i_it).first == j) {//la j-esima columna de la fila i no es 0
                 aij = (*i_it).second;
                 m_ij = aij / ajj;
-                i_it=(*mat)[i - 1].erase(i_it); //seteo 0 en la posicion aij
+                i_it = (*mat)[i - 1].erase(i_it); //seteo 0 en la posicion aij
                 k_it = j_it;
                 while (k_it != j_fin) {
                     //                    cout << (*k_it).first << " " << (*k_it).second << endl;
                     int k = (*k_it).first;
                     while (i_it != i_fin && (*i_it).first < k) {
                         i_it;
-//                        cout << "i: " << i << " j: " << j << " k: " << k << endl;
+                        //                        cout << "i: " << i << " j: " << j << " k: " << k << endl;
                         ++i_it; //avanzo el iterador hasta una posición que se vaya a modificar
                     }
                     if ((*i_it).first == k) {//había un dato en la posición aik
@@ -125,8 +110,8 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
                         }
                     } else {//el iterador se pasó de largo
                         calculo = -m_ij * (*k_it).second; // m_ij != 0 , (*k_it).second != 0 => calculo != 0
-//                        this->set(i, k, calculo);
-                        (*mat)[i-1].insert(i_it,parDato(k,calculo));//The function optimizes its insertion time if position points to the element that will follow the inserted element (or to the end, if it would be the last).
+                        //                        this->set(i, k, calculo);
+                        (*mat)[i - 1].insert(i_it, parDato(k, calculo)); //The function optimizes its insertion time if position points to the element that will follow the inserted element (or to the end, if it would be the last).
                     }
                     ++k_it;
                 }
