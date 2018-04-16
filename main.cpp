@@ -85,6 +85,16 @@ void calcularIpWD(Matriz* W) {
     }
 }
 
+void normalizar(vector<double>& x) {
+    double norma = 0;
+    for (auto& elem : x) {
+        norma += elem;
+    }
+    for (unsigned int i = 0; i < x.size(); i++) {
+        x[i] = x[i] / norma;
+    }
+}
+
 void pruebaBS1() {
     MatrizBasica A(2, 2, 0);
     A(1, 1, 1);
@@ -212,7 +222,6 @@ void pruebaBSConTiempo(unsigned int n) {
         for (auto elem : y) {
             cout << elem << " ";
         }
-
     }
 }
 
@@ -287,7 +296,7 @@ void pruebasEliminacionGaussiana() {
         cout << v[i] << " \t";
     }
     cout << endl;
-    system("Pause");
+    exit(0);
 }
 
 void pruebaMultiplicaPorDiagonal() {
@@ -326,16 +335,6 @@ void pruebaMultiplicaPorNumero() {
     cout << "Rala" << endl << B * lambda << endl;
 }
 
-void normalizar(vector<double>& x) {
-    double norma = 0;
-    for (auto& elem : x) {
-        norma += elem;
-    }
-    for (unsigned int i = 0; i < x.size(); i++) {
-        x[i] = x[i] / norma;
-    }
-}
-
 void pruebaNormalizar() {
     vector<double> x(5, 1);
     normalizar(x);
@@ -363,17 +362,13 @@ int main(int argc, char** argv) {
     t_b = clock();
     tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
     t_a = t_b;
-    cout << "vecotres e y x " << tiempo << endl;
+    cout << "vectores e y x " << tiempo << endl;
     calcularIpWD(W);
     t_b = clock();
     tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
     t_a = t_b;
     cout << "IpWD " << tiempo << endl;
-    //    try{
     W->eliminacionGaussiana(e);
-    //    }catch(int a){
-    //        cout << endl << "explota por los aires " << a << endl;exit(0);
-    //    }
     t_b = clock();
     tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
     t_a = t_b;

@@ -48,7 +48,9 @@
           <standard>10</standard>
         </cTool>
         <ccTool>
+          <architecture>2</architecture>
           <standard>8</standard>
+          <commandLine>-O3</commandLine>
         </ccTool>
       </compileType>
       <item path="Matriz.cpp" ex="false" tool="1" flavor2="0">
@@ -83,7 +85,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>2</developmentMode>
           <standard>8</standard>
         </ccTool>
         <fortranCompilerTool>

@@ -1,7 +1,7 @@
 #
-#  There exist several targets which are by default empty and which can be 
-#  used for execution of your targets. These targets are usually executed 
-#  before and after some main targets. They are: 
+#  There exist several targets which are by default empty and which can be
+#  used for execution of your targets. These targets are usually executed
+#  before and after some main targets. They are:
 #
 #     .build-pre:              called before 'build' target
 #     .build-post:             called after 'build' target
@@ -17,13 +17,13 @@
 #  Targets beginning with '.' are not intended to be called on their own.
 #
 #  Main targets can be executed directly, and they are:
-#  
+#
 #     build                    build a specific configuration
 #     clean                    remove built files from a configuration
 #     clobber                  remove all built files
 #     all                      build all configurations
 #     help                     print help mesage
-#  
+#
 #  Targets .build-impl, .clean-impl, .clobber-impl, .all-impl, and
 #  .help-impl are implemented in nbproject/makefile-impl.mk.
 #
@@ -44,7 +44,7 @@
 # NOCDDL
 
 
-# Environment 
+# Environment
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
@@ -126,15 +126,41 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
-tp: all
+rm_out:
+	rm -f tests_tp1/*.out
+
+tp: all rm_out
 	cp ${CND_ARTIFACT_PATH_Release} ${TP}
 
-pruebas: tp .${PRUEBA1}
-	
-.test_15_segundos: 
-	./${TP} tests_tp1/test_15_segundos.txt 0.9
-#	diff tests_tp1/test_15_segundos.txt.out tests_tp1/test_15_segundos.txt.out.expected
-	
+pruebas: tp .${PRUEBA1} .${PRUEBA2} .${PRUEBA3} .${PRUEBA4} .${PRUEBA5} .${PRUEBA6}
+	echo "Todas las pruebas correctas";
+
+.${PRUEBA1}:
+	./${TP} tests_tp1/${PRUEBA1}.txt 0.9
+	diff tests_tp1/${PRUEBA1}.txt.out tests_tp1/${PRUEBA1}.txt.out.expected
+
+.${PRUEBA2}:
+	./${TP} tests_tp1/${PRUEBA2}.txt 0.8
+	diff tests_tp1/${PRUEBA2}.txt.out tests_tp1/${PRUEBA2}.txt.out.expected
+
+.${PRUEBA3}:
+	./${TP} tests_tp1/${PRUEBA3}.txt 0.85
+	diff tests_tp1/${PRUEBA3}.txt.out tests_tp1/${PRUEBA3}.txt.out.expected
+
+.${PRUEBA4}:
+	./${TP} tests_tp1/${PRUEBA4}.txt 0.5
+	diff tests_tp1/${PRUEBA4}.txt.out tests_tp1/${PRUEBA4}.txt.out.expected
+
+.${PRUEBA5}:
+	./${TP} tests_tp1/${PRUEBA5}.txt 0.64
+	diff tests_tp1/${PRUEBA5}.txt.out tests_tp1/${PRUEBA5}.txt.out.expected
+
+.${PRUEBA6}:
+	./${TP} tests_tp1/${PRUEBA6}.txt 0.3
+	diff tests_tp1/${PRUEBA6}.txt.out tests_tp1/${PRUEBA6}.txt.out.expected
+
+
+
 # include project implementation makefile
 include nbproject/Makefile-impl.mk
 
