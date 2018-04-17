@@ -20,6 +20,7 @@
 #include "cassert"
 #include "list"
 #include "vector"
+#include <math.h>
 
 using namespace std;
 

@@ -88,13 +88,13 @@ void calcularIpWD(Matriz* W) {
 }
 
 void normalizar(vector<double>& x) {
-    double norma = 0;
-    for (auto& elem : x) {
-        norma += elem;
-    }
-    for (unsigned int i = 0; i < x.size(); i++) {
-        x[i] = x[i] / norma;
-    }
+	double norma = 0;
+	for (auto& elem : x) {
+		norma += elem;
+	}
+	for (unsigned int i = 0; i < x.size(); i++) {
+		x[i] = x[i] / norma;
+	}
 }
 
 void pruebaBS1() {
@@ -178,53 +178,53 @@ void pruebaBS5() {
 }
 
 void pruebaBSConTiempo(unsigned int n) {
-    MatrizBasica B(n, n);
-    MatrizRala R(n, n);
-    vector<double> b(n, 1), x(n, 0), y(n, 0);
-    unsigned int f = 0;
-    for (unsigned int i = 1; i <= n; i++) {
-        //Diagonal completa
-        f++;
-        B(i, i, f);
-        R(i, i, f);
-        for (unsigned int j = i + 1; j <= n; j++) {
-            if (rand() % 100 < 10) { // 90% rala en el triangulo superior
-                B(i, j, f);
-                R(i, j, f);
-            }
-            f++;
-        }
-    }
-    clock_t tStart1 = clock();
-    B.backwardSubstitution(b, x);
-    clock_t tEnd1 = clock();
-    double tiempo1 = (double) (tEnd1 - tStart1) / CLOCKS_PER_SEC;
-    clock_t tStart2 = clock();
-    R.backwardSubstitution(b, y);
-    clock_t tEnd2 = clock();
-    double tiempo2 = (double) (tEnd2 - tStart2) / CLOCKS_PER_SEC;
-    cout << "Para Matrices de " << n << "x" << n << endl;
-    cout << "tiempo MatrizBasica: " << tiempo1 << "s" << endl;
-    cout << "tiempo MatrizRala: " << tiempo2 << "s" << endl;
-    cout << "proporción: " << tiempo1 / tiempo2 << endl;
-    bool distintos = false;
-    for (unsigned int i = 0; i < n; i++) {
-        if (fabs(x[i] - y[i]) < epsilon) {
-            //toto joya
-        } else {
-            distintos = true;
-        }
-    }
-    if (distintos) {
-        cout << "resultados diferentes " << endl;
-        for (auto elem : x) {
-            cout << elem << " ";
-        }
-        cout << endl;
-        for (auto elem : y) {
-            cout << elem << " ";
-        }
-    }
+	MatrizBasica B(n, n);
+	MatrizRala R(n, n);
+	vector<double> b(n, 1), x(n, 0), y(n, 0);
+	unsigned int f = 0;
+	for (unsigned int i = 1; i <= n; i++) {
+		//Diagonal completa
+		f++;
+		B(i, i, f);
+		R(i, i, f);
+		for (unsigned int j = i + 1; j <= n; j++) {
+			if (rand() % 100 < 10) { // 90% rala en el triangulo superior
+				B(i, j, f);
+				R(i, j, f);
+			}
+			f++;
+		}
+	}
+	clock_t tStart1 = clock();
+	B.backwardSubstitution(b, x);
+	clock_t tEnd1 = clock();
+	double tiempo1 = (double) (tEnd1 - tStart1) / CLOCKS_PER_SEC;
+	clock_t tStart2 = clock();
+	R.backwardSubstitution(b, y);
+	clock_t tEnd2 = clock();
+	double tiempo2 = (double) (tEnd2 - tStart2) / CLOCKS_PER_SEC;
+	cout << "Para Matrices de " << n << "x" << n << endl;
+	cout << "tiempo MatrizBasica: " << tiempo1 << "s" << endl;
+	cout << "tiempo MatrizRala: " << tiempo2 << "s" << endl;
+	cout << "proporción: " << tiempo1 / tiempo2 << endl;
+	bool distintos = false;
+	for (unsigned int i = 0; i < n; i++) {
+		if (fabs(x[i] - y[i]) < epsilon) {
+			//toto joya
+		} else {
+			distintos = true;
+		}
+	}
+	if (distintos) {
+		cout << "resultados diferentes " << endl;
+		for (auto elem : x) {
+			cout << elem << " ";
+		}
+		cout << endl;
+		for (auto elem : y) {
+			cout << elem << " ";
+		}
+	}
 }
 
 void pruebasEliminacionGaussiana() {
@@ -263,42 +263,42 @@ void pruebasEliminacionGaussiana() {
 	mat(4,4,1);
 	vector<double> v(4, 1);
 
-    MatrizBasica mat(4, 4);
-    mat(1,1,1);
-    mat(1,2,2);
-    mat(1,3,3);
-    mat(1,4,4);
-    mat(2,1,5);
-    mat(2,2,6);
-    mat(2,3,7);
-    mat(2,4,8);
-    mat(3,1,9);
-    mat(3,2,10);
-    mat(3,3,11);
-    mat(3,4,12);
-    mat(4,1,13);
-    mat(4,2,14);
-    mat(4,3,15);
-    mat(4,4,16);
-    vector<double> v(4, 1);
-     */
-    cout << "Matriz: " << endl;
-    cout << mat;
-    cout << "Vector: " << endl;
-    for (int i = 0; i < v.size(); i++) {
-        cout << v[i] << " \t";
-    }
-    cout << endl;
-    mat.eliminacionGaussiana(v);
-    cout << "Eliminacion Gaussiana" << endl;
-    cout << "Matriz: " << endl;
-    cout << mat;
-    cout << "Vector: " << endl;
-    for (int i = 0; i < v.size(); i++) {
-        cout << v[i] << " \t";
-    }
-    cout << endl;
-    exit(0);
+	MatrizBasica mat(4, 4);
+	mat(1,1,1);
+	mat(1,2,2);
+	mat(1,3,3);
+	mat(1,4,4);
+	mat(2,1,5);
+	mat(2,2,6);
+	mat(2,3,7);
+	mat(2,4,8);
+	mat(3,1,9);
+	mat(3,2,10);
+	mat(3,3,11);
+	mat(3,4,12);
+	mat(4,1,13);
+	mat(4,2,14);
+	mat(4,3,15);
+	mat(4,4,16);
+	vector<double> v(4, 1);
+	 */
+	cout << "Matriz: " << endl;
+	cout << mat;
+	cout << "Vector: " << endl;
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << " \t";
+	}
+	cout << endl;
+	mat.eliminacionGaussiana(v);
+	cout << "Eliminacion Gaussiana" << endl;
+	cout << "Matriz: " << endl;
+	cout << mat;
+	cout << "Vector: " << endl;
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << " \t";
+	}
+	cout << endl;
+	exit(0);
 }
 
 void pruebaMultiplicaPorDiagonal() {
@@ -346,57 +346,23 @@ void pruebaNormalizar() {
 	imprimirVector(x, cout);
 }
 
-int main(int argc, char** argv) {
-	double tiempo;
-	clock_t t_a = clock();
-	Matriz* W = parsearEntrada(argc, argv);
-	clock_t t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "parseada " << tiempo << endl;
-	//armarDiagonalyZ();
-	t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "diagonal " << tiempo << endl;
-	vector<double> e(n, 1);
-	vector<double> x(n, 0);
-	t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "vecotres e y x " << tiempo << endl;
-	//calcularIpWD(W);
-	t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "IpWD " << tiempo << endl;
-	//    try{
-	//W->eliminacionGaussiana(e);
-	//    }catch(int a){
-	//        cout << endl << "explota por los aires " << a << endl;exit(0);
-	//    }
-	t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "EG " << tiempo << endl;
-	//W->backwardSubstitution(e, x);
-	t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "BS " << tiempo << endl;
-	//normalizar(x);
-	t_b = clock();
-	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
-	t_a = t_b;
-	cout << "normalizar " << tiempo << endl;
-	string extension = ".out";
-	string nombreArchivoSalida = argv[1] + extension;
-	cout << "Archivo de salida: " << nombreArchivoSalida << endl;
-	ofstream archivoSalida(nombreArchivoSalida.c_str(), ofstream::out);
-	archivoSalida << p << endl;
-	for (unsigned int i = 0; i < n; i++) {
-		archivoSalida << x[i] << endl;
+void pruebaListas() {
+	int n = 5;
+	Matriz* A = new matriz(n, n);
+	vector<double> x = vector<double>(n, 1);
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= i; j++) {
+			A->set(i, j, i);
+		}
+		x[i - 1] = i;
 	}
-	cout << *W;
+	time_t t = clock();
+	A->eliminacionGaussiana(x);
+	cout << *A << endl;
+	imprimirVector(x, cout);
+}
+
+int main(int argc, char** argv) {
+	pruebaListas();
 	return 0;
 }

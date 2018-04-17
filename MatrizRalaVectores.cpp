@@ -34,7 +34,7 @@ double MatrizRalaVectores::get(unsigned int i, unsigned int j) const {
 	assert(j <= this->_cols);
 	fila filita = this->_matriz[i - 1];
 	for (auto it = filita.begin(); it != filita.end(); ++it) {
-		if ((*it).first == j) {
+		if ((*it).first == j - 1) {
 			return (*it).second;
 		}
 	}
@@ -47,16 +47,16 @@ Matriz& MatrizRalaVectores::set(unsigned int i, unsigned int j, double valor) {
 	assert(j <= this->_cols);
 	;
 	fila::iterator it;
-	for (it = (this->_matriz[i - 1]).begin(); it != (this->_matriz[i - 1]).end() && (*it).first <= j; ++it);
+	for (it = (this->_matriz[i - 1]).begin(); it != (this->_matriz[i - 1]).end() && (*it).first <= j - 1; ++it);
 	if (valor != 0) {
 		if ((*it).first == j) {
 			(*it).second = valor;
 		}
 		if ((*it).first > j) {
-			(this->_matriz[i - 1]).insert(it, pair<int, double>(j, valor));
+			(this->_matriz[i - 1]).insert(it, pair<int, double>(j - 1, valor));
 		}
 		if ((*it).first < j) {
-			(this->_matriz[i - 1]).push_back(pair<int, double>(j, valor));
+			(this->_matriz[i - 1]).push_back(pair<int, double>(j - 1, valor));
 		}
 	} else {
 		if ((*it).first == j) {
@@ -76,42 +76,100 @@ Matriz& MatrizRalaVectores::eliminacionGaussiana(vector<double>& v) {
 	double m_ij, calculo, ajj, aij;
 	fila::iterator j_it, j_fin, i_it, i_fin, k_it;
 	unsigned int k;
-	for (unsigned int j = 0; j < this->_rows; j++) {
-		j_it = this->_matriz[j].begin();
-		j_fin = this->_matriz[j].end();
-		ajj = this->get(j, j);
+	vector<fila>::iterator it1_i, it2_i;
+	vector<fila>::iterator fin_i = this->_matriz.end();
+	fila::iterator it1_j, it2_j, muerto;
+	fila fila1_i, fila2_i;
+	fin_i--; //hasta n-1
+	int i = 0, j = 0;
+	fila::iterator fruta;
+	pair<int, double> nuevodato;
+	bool terminofila1, terminofila2;
+	for (it1_i = this->_matriz.begin(); it1_i != fin_i; ++it1_i) {
+		fila1_i = (*it1_i);
+		ajj = (*(fila1_i.begin())).second;
+		fruta = (fila1_i.begin());
+		assert((*(fila1_i.begin())).first == i); //el primer elemento de la fila debe ser el de la diagonal
 		assert(fabs(ajj) >= epsilon); //Se demostró que se puede hacer EG sin problemas entonces debería dar siempre distinto de 0
-		for (unsigned int i = j + 1; i <= this->_rows; i++) {//filas por las que voy a ciclar
-			i_fin = this->_matriz[i - 1].end();
-			i_it = this->_matriz[i - 1].find(j);
-			if (i_it != i_fin) {//Encontró un dato en la posicion a_ij entonces es distinto de 0 y debo procesar la fila i
-				aij = i_it->second;
+		it2_i = it1_i;
+		it2_i++;
+		j = i + 1;
+		while (it2_i != this->_matriz.end()) {//filas por las que voy a ciclar
+			fila2_i = (*it2_i);
+			it1_j = (*it1_i).begin(); //vale fila1_i.begin()
+			it2_j = (*it2_i).begin(); //vale fila2_i.begin()
+			if ((*it1_j).first == (*it2_j).first) {//Encontró un dato en la posicion a_ij entonces es distinto de 0 y debo procesar la fila i
+				aij = it2_j->second;
 				m_ij = aij / ajj;
-				k_it = j_it;
-				for (k_it = j_it; k_it != j_fin; ++k_it) {//ciclo en todos los elementos no nulos de la fila j
-					k = k_it->first;
-					//                    calculo = this->_matriz[i - 1][k] - m_ij * (k_it->second); //this->_matriz[i-1][k] crea el dato k si no existe la clave
-					//                    if (fabs(calculo) < epsilon) {//lo consideramos 0
-					//                        this->_matriz[i - 1].erase(k);
-					//                    } else {
-					//                        this->_matriz[i - 1][k] = calculo;
-					//                    }
-					i_it = this->_matriz[i - 1].find(k);
-					if (i_it != i_fin) {
-						calculo = (i_it->second) - m_ij * (k_it->second);
-						if (fabs(calculo) < epsilon) {//lo consideramos 0
-							this->_matriz[i - 1].erase(k);
+				terminofila1 = false;
+				terminofila2 = false;
+				while (!terminofila2 && !terminofila1) {//ciclo en todos los elementos no nulos de la fila j
+					cout << "entro" << endl;
+					if ((*it1_j).first == (*it2_j).first) {
+						cout << "iguales" << endl;
+						calculo = it2_j->second - m_ij * (*it1_j).second;
+						(*it2_j).second = calculo;
+						if (it1_j == fila1_i.end()) {
+							terminofila1 = true;
 						} else {
-							this->_matriz[i - 1][k] = calculo;
+							it1_j++;
 						}
-					} else {
-						calculo = -m_ij * (k_it->second);
-						this->_matriz[i - 1].insert(parDatoU(k, calculo));
+
+						if (it2_j == fila2_i.end()) {
+							terminofila2 = true;
+							if (calculo < epsilon) {
+								fila2_i.erase(it2_j);
+							}
+						} else {
+							if (calculo < epsilon) {
+								muerto = it2_j;
+								it2_j++;
+								fila2_i.erase(muerto);
+							} else {
+								it2_j++;
+							}
+						}
+						continue;
+					}
+
+					if ((*it1_j).first > (*it2_j).first) {
+						cout << "superior adelantada" << endl;
+						if (it2_j == fila2_i.end()) {
+							terminofila2 = true;
+						} else {
+							it2_j++;
+						}
+						continue;
+					}
+					if ((*it1_j).first < (*it2_j).first) {
+						cout << "superior atrasada" << "   1: " << (*it1_j).first << "   2: " << (*it2_j).first << endl;
+						nuevodato = pair<int, double>((*it1_j).first, m_ij * (*it1_j).second);
+						fila2_i.insert(it2_j, nuevodato);
+						if (it1_j == fila1_i.end()) {
+							terminofila1 = true;
+						} else {
+							it1_j++;
+						}
+						continue;
 					}
 				}
-				v[i - 1] = v[i - 1] - m_ij * v[j - 1];
+				while (!terminofila1) {
+					nuevodato = pair<int, double>((*it1_j).first, -m_ij * (*it1_j).second);
+					fila2_i.push_back(nuevodato);
+					if (it1_j == fila1_i.end()) {
+						terminofila1 = true;
+					} else {
+
+						it1_j++;
+					}
+				}
+				cout << "termine la fila" << endl;
 			}
+			v[i] = v[i] - m_ij * v[j];
+			j++;
+			it2_i++;
 		}
+		i++;
 	}
 	return *this;
 }
