@@ -52,7 +52,7 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandLine>-O3</commandLine>
+          <commandLine>-O0</commandLine>
         </ccTool>
       </compileType>
       <item path="Matriz.cpp" ex="false" tool="1" flavor2="0">

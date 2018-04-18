@@ -33,11 +33,9 @@ double MatrizRalaVectores::get(unsigned int i, unsigned int j) const {
 	assert(i <= this->_rows);
 	assert(j <= this->_cols);
 	fila filita = this->_matriz[i - 1];
-	for (auto it = filita.begin(); it != filita.end(); ++it) {
-		if ((*it).first == j - 1) {
-			return (*it).second;
-		}
-	}
+	if (filita.size() == 0) return 0;
+	for (fila::iterator it = filita.begin(); it != filita.end(); ++it)
+		cout << " puntero: " << &it << endl;
 	return 0;
 
 }
@@ -45,26 +43,31 @@ double MatrizRalaVectores::get(unsigned int i, unsigned int j) const {
 Matriz& MatrizRalaVectores::set(unsigned int i, unsigned int j, double valor) {
 	assert(i <= this->_rows);
 	assert(j <= this->_cols);
-	;
+	pair<int, double> nuevo(j - 1, valor);
 	fila::iterator it;
-	for (it = (this->_matriz[i - 1]).begin(); it != (this->_matriz[i - 1]).end() && (*it).first <= j - 1; ++it);
+	if (this->_matriz[i - 1].size() == 0 && valor != 0) {
+		this->_matriz[i - 1].push_back(nuevo);
+		return *this;
+	}
+	it = (this->_matriz[i - 1]).begin();
+	while (it != (this->_matriz[i - 1]).end() && (*it).first < j - 1) {
+		it++;
+	}
 	if (valor != 0) {
-		if ((*it).first == j) {
+		if ((*it).first == j - 1) {
 			(*it).second = valor;
 		}
-		if ((*it).first > j) {
-			(this->_matriz[i - 1]).insert(it, pair<int, double>(j - 1, valor));
+		if ((*it).first > j - 1) {
+			(this->_matriz[i - 1]).insert(it, nuevo);
 		}
-		if ((*it).first < j) {
-			(this->_matriz[i - 1]).push_back(pair<int, double>(j - 1, valor));
+		if ((*it).first < j - 1) {
+			(this->_matriz[i - 1]).push_back(nuevo);
 		}
 	} else {
-		if ((*it).first == j) {
+		if ((*it).first == j - 1) {
 			(this->_matriz[i - 1]).erase(it);
 		}
 	}
-
-
 	return *this;
 }
 
@@ -73,101 +76,83 @@ Matriz& MatrizRalaVectores::operator+(const Matriz& mat) {
 }
 
 Matriz& MatrizRalaVectores::eliminacionGaussiana(vector<double>& v) {
+	cout << *this << endl;
 	double m_ij, calculo, ajj, aij;
-	fila::iterator j_it, j_fin, i_it, i_fin, k_it;
-	unsigned int k;
-	vector<fila>::iterator it1_i, it2_i;
+	vector<fila>::iterator iteradorFila1, iteradorFila2;
 	vector<fila>::iterator fin_i = this->_matriz.end();
-	fila::iterator it1_j, it2_j, muerto;
-	fila fila1_i, fila2_i;
+	fila::iterator iteradorColumna1, iteradorColumna2, muerto;
+
 	fin_i--; //hasta n-1
 	int i = 0, j = 0;
-	fila::iterator fruta;
+
 	pair<int, double> nuevodato;
 	bool terminofila1, terminofila2;
-	for (it1_i = this->_matriz.begin(); it1_i != fin_i; ++it1_i) {
-		fila1_i = (*it1_i);
-		ajj = (*(fila1_i.begin())).second;
-		fruta = (fila1_i.begin());
-		assert((*(fila1_i.begin())).first == i); //el primer elemento de la fila debe ser el de la diagonal
+	for (iteradorFila1 = this->_matriz.begin(); iteradorFila1 != fin_i; ++iteradorFila1) {
+
+		ajj = (*(*iteradorFila1).begin()).second;
+		cout << *this << endl;
+		//assert((*(*iteradorFila1).begin()).first == i); //el primer elemento de la fila debe ser el de la diagonal
+		if ((*((*iteradorFila1).begin())).first != i) {
+
+			exit(3);
+		}
 		assert(fabs(ajj) >= epsilon); //Se demostró que se puede hacer EG sin problemas entonces debería dar siempre distinto de 0
-		it2_i = it1_i;
-		it2_i++;
+		iteradorFila2 = iteradorFila1;
+		iteradorFila2++;
 		j = i + 1;
-		while (it2_i != this->_matriz.end()) {//filas por las que voy a ciclar
-			fila2_i = (*it2_i);
-			it1_j = (*it1_i).begin(); //vale fila1_i.begin()
-			it2_j = (*it2_i).begin(); //vale fila2_i.begin()
-			if ((*it1_j).first == (*it2_j).first) {//Encontró un dato en la posicion a_ij entonces es distinto de 0 y debo procesar la fila i
-				aij = it2_j->second;
+		while (iteradorFila2 != this->_matriz.end()) {//filas por las que voy a ciclar
+
+			iteradorColumna1 = (*iteradorFila1).begin(); //vale fila1.begin()
+			iteradorColumna2 = (*iteradorFila2).begin(); //vale fila2.begin()
+
+			//cout << "averiguo si tengo que mirar la fila" << endl;
+			if ((*iteradorColumna1).first == (*iteradorColumna2).first) {//Encontró un dato en la posicion a_ij entonces es distinto de 0 y debo procesar la fila i
+				aij = iteradorColumna2->second;
 				m_ij = aij / ajj;
-				terminofila1 = false;
 				terminofila2 = false;
-				while (!terminofila2 && !terminofila1) {//ciclo en todos los elementos no nulos de la fila j
-					cout << "entro" << endl;
-					if ((*it1_j).first == (*it2_j).first) {
-						cout << "iguales" << endl;
-						calculo = it2_j->second - m_ij * (*it1_j).second;
-						(*it2_j).second = calculo;
-						if (it1_j == fila1_i.end()) {
-							terminofila1 = true;
-						} else {
-							it1_j++;
+				if ((*iteradorFila2).size() == 0) {
+					terminofila2 = true;
+				}
+				for (iteradorColumna1 = (*iteradorFila1).begin(); iteradorColumna1 != (*iteradorFila1).end(); ++iteradorColumna1) {
+					calculo = -m_ij * (*iteradorColumna1).second;
+					nuevodato = pair<int, double>((*iteradorColumna1).first, calculo);
+					if (!terminofila2) {
+						while ((*iteradorColumna2).first < (*iteradorColumna1).first && iteradorColumna2 != (*iteradorFila2).end()) {
+							iteradorColumna2++;
 						}
+						if ((*iteradorColumna2).first == (*iteradorColumna1).first) {
+							(*iteradorColumna2).second = (*iteradorColumna2).second + calculo;
 
-						if (it2_j == fila2_i.end()) {
+						}
+						if ((*iteradorColumna2).first < (*iteradorColumna1).first) {
+							(*iteradorFila2).insert(iteradorColumna2, nuevodato);
+						}
+						if ((*iteradorColumna2).first > (*iteradorColumna1).first) {
+							(*iteradorFila2).push_back(nuevodato);
 							terminofila2 = true;
-							if (calculo < epsilon) {
-								fila2_i.erase(it2_j);
-							}
-						} else {
-							if (calculo < epsilon) {
-								muerto = it2_j;
-								it2_j++;
-								fila2_i.erase(muerto);
+						}
+						if (fabs((*iteradorColumna2).second) < epsilon) {
+							muerto = iteradorColumna2;
+							if (iteradorColumna2 == (*iteradorFila2).end()) {
+								terminofila2 = true;
 							} else {
-								it2_j++;
+								iteradorColumna2++;
 							}
+							(*iteradorFila2).erase(muerto);
 						}
-						continue;
-					}
-
-					if ((*it1_j).first > (*it2_j).first) {
-						cout << "superior adelantada" << endl;
-						if (it2_j == fila2_i.end()) {
-							terminofila2 = true;
-						} else {
-							it2_j++;
-						}
-						continue;
-					}
-					if ((*it1_j).first < (*it2_j).first) {
-						cout << "superior atrasada" << "   1: " << (*it1_j).first << "   2: " << (*it2_j).first << endl;
-						nuevodato = pair<int, double>((*it1_j).first, m_ij * (*it1_j).second);
-						fila2_i.insert(it2_j, nuevodato);
-						if (it1_j == fila1_i.end()) {
-							terminofila1 = true;
-						} else {
-							it1_j++;
-						}
-						continue;
-					}
-				}
-				while (!terminofila1) {
-					nuevodato = pair<int, double>((*it1_j).first, -m_ij * (*it1_j).second);
-					fila2_i.push_back(nuevodato);
-					if (it1_j == fila1_i.end()) {
-						terminofila1 = true;
 					} else {
-
-						it1_j++;
+						(*iteradorFila2).push_back(nuevodato);
 					}
 				}
-				cout << "termine la fila" << endl;
+
+				v[i] = v[i] - m_ij * v[j];
+
 			}
-			v[i] = v[i] - m_ij * v[j];
+			//cout << "termine la fila" << endl;
+
+			iteradorFila2++;
 			j++;
-			it2_i++;
+
 		}
 		i++;
 	}
@@ -193,25 +178,30 @@ void MatrizRalaVectores::backwardSubstitution(const std::vector<double>& b, std:
 	}
 }
 
-/*
 Matriz& MatrizRalaVectores::multiplicaPorDiagonal(const std::vector<double>& D) {
+	cout << *this << endl;
 	for (unsigned int i = 0; i < this->_rows; i++) {
-		for (auto& elem : this->_matriz[i]) {
-			elem.second *= D[elem.first - 1];
+		cout << D[i] << " ";
+	}
+	cout << endl;
+	for (unsigned int i = 0; i < this->_rows; i++) {
+		for (fila::iterator it = _matriz[i].begin(); it != _matriz[i].end(); ++it) {
+			(*it).second = (*it).second * D[(*it).first];
 		}
 	}
+	cout << *this << endl;
 	return *this;
 }
 
 Matriz& MatrizRalaVectores::operator*(double lambda) {
 	for (unsigned int i = 0; i < this->_rows; i++) {
-		for (auto& elem : this->_matriz[i]) {
-			elem.second = elem.second*lambda;
+		for (fila::iterator it = _matriz[i].begin(); it != _matriz[i].end(); ++it) {
+			(*it).second = (*it).second * lambda;
 		}
 	}
 	return *this;
 }
- */
+
 double MatrizRalaVectores::operator()(unsigned int i, unsigned int j) const {
 	return this->get(i, j);
 }
@@ -219,4 +209,14 @@ double MatrizRalaVectores::operator()(unsigned int i, unsigned int j) const {
 Matriz& MatrizRalaVectores::operator()(unsigned int i, unsigned int j, double valor) {
 
 	return this->set(i, j, valor);
+}
+
+int MatrizRalaVectores::paso(int x, int y) {
+	int ret;
+	if (x == y) {
+		ret = 0;
+	} else {
+		ret = ((x - y) / fabs(x - y));
+	}
+	return ret;
 }

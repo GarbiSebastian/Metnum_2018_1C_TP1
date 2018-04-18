@@ -17,6 +17,7 @@
 //typedef MatrizRalaUnordered matriz;
 typedef MatrizRalaVectores matriz;
 
+
 using namespace std;
 
 unsigned int n;
@@ -79,12 +80,18 @@ void armarDiagonalyZ() {
 }
 
 void calcularIpWD(Matriz* W) {
-	double valor;
+	cout << *W << endl;
 	W->multiplicaPorDiagonal(D);
+	cout << *W << endl;
 	(*W)*(-p);
+	cout << *W << endl;
+	double fruta;
 	for (unsigned int i = 1; i <= n; i++) {
-		(*W)(i, i, (*W)(i, i) + 1);
+		fruta = (*W)(i, i);
+		cout << "i: " << i << "  fruta: " << fruta << endl;
+		(*W)(i, i, fruta + 1);
 	}
+	cout << *W << endl;
 }
 
 void normalizar(vector<double>& x) {
@@ -346,23 +353,52 @@ void pruebaNormalizar() {
 	imprimirVector(x, cout);
 }
 
-void pruebaListas() {
-	int n = 5;
-	Matriz* A = new matriz(n, n);
-	vector<double> x = vector<double>(n, 1);
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= i; j++) {
-			A->set(i, j, i);
-		}
-		x[i - 1] = i;
-	}
-	time_t t = clock();
-	A->eliminacionGaussiana(x);
-	cout << *A << endl;
-	imprimirVector(x, cout);
-}
-
 int main(int argc, char** argv) {
-	pruebaListas();
+	double tiempo;
+	clock_t t_a = clock();
+	Matriz* W = parsearEntrada(argc, argv);
+	clock_t t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "parseada " << tiempo << endl;
+	armarDiagonalyZ();
+	t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "diagonal " << tiempo << endl;
+	vector<double> e(n, 1);
+	vector<double> x(n, 0);
+	t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "vectores e y x " << tiempo << endl;
+	calcularIpWD(W);
+	t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "IpWD " << tiempo << endl;
+	W->eliminacionGaussiana(e);
+	t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "EG " << tiempo << endl;
+	W->backwardSubstitution(e, x);
+	t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "BS " << tiempo << endl;
+	normalizar(x);
+	t_b = clock();
+	tiempo = (double) (t_b - t_a) / CLOCKS_PER_SEC;
+	t_a = t_b;
+	cout << "normalizar " << tiempo << endl;
+	string extension = ".out";
+	string nombreArchivoSalida = argv[1] + extension;
+	cout << "Archivo de salida: " << nombreArchivoSalida << endl;
+	ofstream archivoSalida(nombreArchivoSalida.c_str(), ofstream::out);
+	archivoSalida << p << endl;
+	for (unsigned int i = 0; i < n; i++) {
+		archivoSalida << x[i] << endl;
+	}
 	return 0;
 }

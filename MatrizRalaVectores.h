@@ -38,12 +38,13 @@ public:
 
 	Matriz& eliminacionGaussiana(vector<double>& v) override;
 	void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) override;
-	/*Matriz& multiplicaPorDiagonal(const std::vector<double>& D) override;
-	Matriz& operator*(double lambda) override;*/
+	Matriz& multiplicaPorDiagonal(const std::vector<double>& D) override;
+	Matriz& operator*(double lambda) override;
 	double operator()(unsigned int i, unsigned int j) const override;
 	Matriz& operator()(unsigned int i, unsigned int j, double valor) override;
 private:
 	vector<fila> _matriz;
+	int paso(int x, int y);
 };
 
 #endif /* MATRIZRALAVECTORES_H */
