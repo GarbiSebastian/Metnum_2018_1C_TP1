@@ -7,6 +7,8 @@
       <itemPath>Matriz.h</itemPath>
       <itemPath>MatrizBasica.h</itemPath>
       <itemPath>MatrizRala.h</itemPath>
+      <itemPath>MatrizRalaUnordered.h</itemPath>
+      <itemPath>MatrizRalaVectores.h</itemPath>
       <itemPath>constantes.h</itemPath>
       <itemPath>funciones.h</itemPath>
       <itemPath>pruebas.h</itemPath>
@@ -21,6 +23,8 @@
       <itemPath>Matriz.cpp</itemPath>
       <itemPath>MatrizBasica.cpp</itemPath>
       <itemPath>MatrizRala.cpp</itemPath>
+      <itemPath>MatrizRalaUnordered.cpp</itemPath>
+      <itemPath>MatrizRalaVectores.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>pruebas.cpp</itemPath>
     </logicalFolder>
@@ -49,7 +53,9 @@
           <standard>10</standard>
         </cTool>
         <ccTool>
+          <architecture>2</architecture>
           <standard>8</standard>
+          <commandLine>-O0</commandLine>
         </ccTool>
       </compileType>
       <item path="Matriz.cpp" ex="false" tool="1" flavor2="0">
@@ -63,6 +69,14 @@
       <item path="MatrizRala.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MatrizRala.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MatrizRalaUnordered.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MatrizRalaUnordered.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MatrizRalaVectores.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MatrizRalaVectores.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -86,7 +100,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>2</developmentMode>
           <standard>8</standard>
         </ccTool>
         <fortranCompilerTool>
@@ -107,6 +121,14 @@
       <item path="MatrizRala.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MatrizRala.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MatrizRalaUnordered.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MatrizRalaUnordered.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MatrizRalaVectores.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MatrizRalaVectores.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>

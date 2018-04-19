@@ -18,17 +18,6 @@ MatrizBasica::MatrizBasica(unsigned int rows, unsigned int cols, double valorIni
     this->_matriz = matBas(rows, vectorBas(cols, valorInicial));
 }
 
-MatrizBasica::MatrizBasica(const MatrizBasica& orig) {
-    unsigned int rows = orig.rowSize(), cols = orig.colSize();
-    this->initialize(rows, cols);
-    this->_matriz = matBas(this->rowSize(), vectorBas(this->colSize(), 0.0));
-    for (unsigned int i = 1; i <= this->rowSize(); i++) {
-        for (unsigned int j = 1; j <= this->colSize(); j++) {
-            this->set(i, j, orig.get(i, j));
-        }
-    }
-}
-
 MatrizBasica::~MatrizBasica() {
 }
 

@@ -13,7 +13,6 @@ class MatrizBasica : public Matriz {
 public:
     MatrizBasica(unsigned int rows, unsigned int cols);
     MatrizBasica(unsigned int rows, unsigned int cols, double valorInicial);
-    MatrizBasica(const MatrizBasica& orig);
     virtual ~MatrizBasica();
     double get(unsigned int i, unsigned int j) const override;
     Matriz& set(unsigned int i, unsigned int j, double valor) override;

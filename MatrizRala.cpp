@@ -18,21 +18,6 @@ MatrizRala::MatrizRala(unsigned int rows, unsigned int cols, double valorInicial
     this->_matriz = matRala(rows, mapDato());
 }
 
-MatrizRala::MatrizRala(const MatrizRala& orig) : Matriz(orig) {
-    unsigned int rows = orig.rowSize(), cols = orig.colSize();
-    this->initialize(rows, cols);
-    this->_matriz = matRala(this->_rows, mapDato());
-    insertResult ret;
-    for (unsigned int i = 0; i < this->_rows; i++) {
-        for (auto& datoOrig : orig._matriz[i]) {
-            ret = this->_matriz[i].insert(parDato(datoOrig)); //hago una copia del par
-            if (ret.second == false) {//existe la clave
-                ret.first->second = datoOrig.second; //actualizo el valor
-            }
-        }
-    }
-}
-
 MatrizRala::~MatrizRala() {
 }
 
@@ -50,11 +35,11 @@ Matriz& MatrizRala::set(unsigned int i, unsigned int j, double valor) {
     assert(i <= this->_rows);
     assert(j <= this->_cols);
     if (fabs(valor) >= epsilon) {
-        this->_matriz[i - 1][j]=valor;
-//        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
-//        if (res.second == false) {//existe la clave
-//            res.first->second = valor; //actualizo el valor
-//        }
+        this->_matriz[i - 1][j] = valor;
+        //        insertResult res = this->_matriz[i - 1].insert(parDato(j, valor)); //hago una copia del par
+        //        if (res.second == false) {//existe la clave
+        //            res.first->second = valor; //actualizo el valor
+        //        }
     } else {
         this->_matriz[i - 1].erase(j);
     }
@@ -78,7 +63,7 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
         for (auto& elem : mat._matriz[i]) {//para todos los que estan en la segunda matriz
             if (fabs(elem.second) >= epsilon) {
                 this->_matriz[i].insert(parDato(elem)); // trato de insertar el elemento en la primera
-                //si tiene éxito es porque no estaba en la matriz (corresponde 0+ elem.second) 
+                //si tiene éxito es porque no estaba en la matriz (corresponde 0+ elem.second)
                 //si falla había que sumarlo y eso se hizo en el primer for
             }
         }

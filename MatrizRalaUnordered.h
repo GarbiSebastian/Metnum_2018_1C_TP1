@@ -1,27 +1,29 @@
-#ifndef MATRIZRALA_H
-#define MATRIZRALA_H
+#ifndef MATRIZRALAUNORDERED_H
+#define MATRIZRALAUNORDERED_H
 
-#include <tuple>
+#include <unordered_map>
 #include <vector>
-#include <map>
+
 #include "Matriz.h"
+
 
 using namespace std;
 
-typedef map<unsigned int,double> mapDato;
-typedef vector<mapDato> matRala;
-typedef pair<unsigned int,double> parDato;
-typedef pair<mapDato::iterator,bool> insertResult;
+typedef unordered_map<int,double> mapDatoU;
+typedef vector<mapDatoU> matRalaU;
+typedef pair<int,double> parDatoU;
+typedef pair<mapDatoU::iterator,bool> insertResultU;
 
-class MatrizRala : public Matriz{
+class MatrizRalaUnordered : public Matriz{
 public:
-    MatrizRala(unsigned int rows, unsigned int cols);
-    MatrizRala(unsigned int rows, unsigned int cols, double valorInicial);
-    virtual ~MatrizRala();
+    public:
+    MatrizRalaUnordered(unsigned int rows, unsigned int cols);
+    MatrizRalaUnordered(unsigned int rows, unsigned int cols, double valorInicial);
+    virtual ~MatrizRalaUnordered();
     double get(unsigned int i, unsigned int j) const override;
     Matriz& set(unsigned int i, unsigned int j, double valor) override;
     Matriz& operator +(const Matriz& mat) override;
-    MatrizRala& operator +(const MatrizRala& mat);
+    MatrizRalaUnordered& operator +(const MatrizRalaUnordered& mat);
     Matriz& eliminacionGaussiana(vector<double>& v) override;
     void backwardSubstitution(const std::vector<double>& b, std::vector<double>& x) override;
     Matriz& multiplicaPorDiagonal(const std::vector<double>& D) override;
@@ -29,10 +31,10 @@ public:
     double operator()(unsigned int i, unsigned int j) const override;
     Matriz& operator()(unsigned int i, unsigned int j, double valor) override;
 protected:
-    matRala _matriz;
+    matRalaU _matriz;
 private:
 
 };
 
-#endif /* MATRIZRALA_H */
+#endif /* MATRIZRALAUNORDERED_H */
 
