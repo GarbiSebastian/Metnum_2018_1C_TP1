@@ -8,6 +8,8 @@
       <itemPath>MatrizBasica.h</itemPath>
       <itemPath>MatrizRala.h</itemPath>
       <itemPath>constantes.h</itemPath>
+      <itemPath>funciones.h</itemPath>
+      <itemPath>pruebas.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,6 +22,7 @@
       <itemPath>MatrizBasica.cpp</itemPath>
       <itemPath>MatrizRala.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>pruebas.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -63,7 +66,13 @@
       </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="funciones.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pruebas.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pruebas.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -101,7 +110,13 @@
       </item>
       <item path="constantes.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="funciones.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pruebas.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pruebas.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

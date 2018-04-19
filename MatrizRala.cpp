@@ -88,35 +88,37 @@ MatrizRala& MatrizRala::operator+(const MatrizRala& mat) {
 
 Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
     double m_ij, calculo, ajj, aij;
+    unsigned int min_row_cols = std::min(this->_cols, this->_rows);
     mapDato::iterator j_it,j_fin,i_it,i_fin,k_it;
     matRala* mat = &(this->_matriz);
-    for (unsigned int j = 1; j <= std::min(this->_cols, this->_rows); j++) {
+    for (unsigned int j = 1; j <= min_row_cols; j++) {
         j_it = (*mat)[j - 1].begin();
         j_fin = (*mat)[j - 1].end();
-//        assert((*j_it).first == j); //Asumo que se puede hace EG sin pivoteo entonces la diagonal en j debe estar definida y para la fila j ya esta
+//        assert((*j_it).first == j);
+        //Asumo que se puede hace EG sin pivoteo entonces la diagonal en j debe
+        //estar definida y la fila j ya estar triangulada
         ajj = (*j_it).second;
-        if (ajj == 0) throw 4;
+        if (fabs(ajj) < epsilon) throw 4;
         ++j_it;
 
         for (unsigned int i = j + 1; i <= this->_rows; i++) {
             i_it = (*mat)[i - 1].begin();
             i_fin = (*mat)[i - 1].end();
-//            assert((*i_it).first >= j); //todas las filas por debajo de la j deberían tener 0 hasta la posición j-1
-
-            if ((*i_it).first == j) {//la j-esima columna de la fila i no es 0
+            //Todas las filas por debajo de la j deberían tener 0 hasta la columna j-1
+            //El primer dato de cada una de ellas debe estar como mínimo en la columna j
+//            assert((*i_it).first >= j);
+            if ((*i_it).first == j) {//La j-esima columna de la fila i no es 0, hay que triangularla
                 aij = (*i_it).second;
                 m_ij = aij / ajj;
-                i_it=(*mat)[i - 1].erase(i_it); //seteo 0 en la posicion aij
+                //seteo 0 en la posicion aij.
+                i_it=(*mat)[i - 1].erase(i_it);//Return an iterator to the element that follows the last element removed (or map::end, if the last element was removed).
                 k_it = j_it;
                 while (k_it != j_fin) {
-                    //                    cout << (*k_it).first << " " << (*k_it).second << endl;
                     int k = (*k_it).first;
                     while (i_it != i_fin && (*i_it).first < k) {
-                        i_it;
-//                        cout << "i: " << i << " j: " << j << " k: " << k << endl;
                         ++i_it; //avanzo el iterador hasta una posición que se vaya a modificar
                     }
-                    if ((*i_it).first == k) {//había un dato en la posición aik
+                    if (i_it!=i_fin && (*i_it).first == k) {//había un dato en la posición aik
                         calculo = (*i_it).second - m_ij * (*k_it).second;
                         if (fabs(calculo) < epsilon) {
                             i_it = (*mat)[i - 1].erase(i_it);
@@ -125,7 +127,6 @@ Matriz& MatrizRala::eliminacionGaussiana(vector<double>& v) {
                         }
                     } else {//el iterador se pasó de largo
                         calculo = -m_ij * (*k_it).second; // m_ij != 0 , (*k_it).second != 0 => calculo != 0
-//                        this->set(i, k, calculo);
                         (*mat)[i-1].insert(i_it,parDato(k,calculo));//The function optimizes its insertion time if position points to the element that will follow the inserted element (or to the end, if it would be the last).
                     }
                     ++k_it;

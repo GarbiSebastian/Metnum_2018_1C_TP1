@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Matriz.o \
 	${OBJECTDIR}/MatrizBasica.o \
 	${OBJECTDIR}/MatrizRala.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/pruebas.o
 
 
 # C Compiler Flags
@@ -84,6 +85,11 @@ ${OBJECTDIR}/main.o: main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/pruebas.o: pruebas.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pruebas.o pruebas.cpp
 
 # Subprojects
 .build-subprojects:
