@@ -40,7 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/MatrizRala.o \
 	${OBJECTDIR}/MatrizRalaUnordered.o \
 	${OBJECTDIR}/MatrizRalaVectores.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/pruebas.o
 
 
@@ -101,7 +101,7 @@ ${OBJECTDIR}/main.o: main.cpp
 ${OBJECTDIR}/pruebas.o: pruebas.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pruebas.o pruebas.cpp
+	$(COMPILE.cc) -g -O -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pruebas.o pruebas.cpp
 
 # Subprojects
 .build-subprojects:

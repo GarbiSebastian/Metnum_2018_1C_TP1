@@ -40,9 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/MatrizRala.o \
 	${OBJECTDIR}/MatrizRalaUnordered.o \
 	${OBJECTDIR}/MatrizRalaVectores.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/pruebas.o
-	
 
 
 # C Compiler Flags
