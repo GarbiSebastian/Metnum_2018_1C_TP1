@@ -13,10 +13,10 @@
 #include "constantes.h"
 //#include "pruebas.h"
 
-//typedef MatrizBasica matriz;
+typedef MatrizBasica matriz;
 //typedef MatrizRala matriz;
 //typedef MatrizRalaUnordered matriz;
-typedef MatrizRalaVectores matriz;
+//typedef MatrizRalaVectores matriz;
 
 using namespace std;
 
@@ -80,18 +80,18 @@ void armarDiagonalyZ() {
 }
 
 void calcularIpWD(Matriz* W) {
-	cout << *W << endl;
+	//cout << *W << endl;
 	W->multiplicaPorDiagonal(D);
-	cout << *W << endl;
+	//cout << *W << endl;
 	(*W)*(-p);
-	cout << *W << endl;
+	//cout << *W << endl;
 	double fruta;
 	for (unsigned int i = 1; i <= n; i++) {
 		fruta = (*W)(i, i);
-		cout << "i: " << i << "  fruta: " << fruta << endl;
+//		cout << "i: " << i << "  fruta: " << fruta << endl;
 		(*W)(i, i, fruta + 1);
 	}
-	cout << *W << endl;
+//	cout << *W << endl;
 }
 
 void normalizar(vector<double>& x) {

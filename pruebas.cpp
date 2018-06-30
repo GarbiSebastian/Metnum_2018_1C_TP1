@@ -207,7 +207,7 @@ void pruebasEliminacionGaussiana() {
         cout << v[i] << " \t";
     }
     cout << endl;
-    system("Pause");
+    
 }
 void pruebaMultiplicaPorDiagonal(){
     unsigned int mi_n = 3;

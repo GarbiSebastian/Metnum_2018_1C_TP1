@@ -16,6 +16,28 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <logicalFolder name="tests_tp1" displayName="tests_tp1" projectFiles="true">
+        <itemPath>tests_tp1/test_15_segundos.txt</itemPath>
+        <itemPath>tests_tp1/test_15_segundos.txt.out</itemPath>
+        <itemPath>tests_tp1/test_15_segundos.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/test_30_segundos.txt</itemPath>
+        <itemPath>tests_tp1/test_30_segundos.txt.out</itemPath>
+        <itemPath>tests_tp1/test_30_segundos.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/test_aleatorio.txt</itemPath>
+        <itemPath>tests_tp1/test_aleatorio.txt.out</itemPath>
+        <itemPath>tests_tp1/test_aleatorio.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/test_aleatorio_desordenado.txt</itemPath>
+        <itemPath>tests_tp1/test_aleatorio_desordenado.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/test_completo.txt</itemPath>
+        <itemPath>tests_tp1/test_completo.txt.out</itemPath>
+        <itemPath>tests_tp1/test_completo.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/test_sin_links.txt</itemPath>
+        <itemPath>tests_tp1/test_sin_links.txt.out</itemPath>
+        <itemPath>tests_tp1/test_sin_links.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/test_trivial.txt</itemPath>
+        <itemPath>tests_tp1/test_trivial.txt.out</itemPath>
+        <itemPath>tests_tp1/test_trivial.txt.out.expected</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -40,6 +62,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>tests_tp1</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -87,6 +112,70 @@
       <item path="pruebas.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pruebas.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_15_segundos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_15_segundos.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_15_segundos.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_30_segundos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_30_segundos.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_30_segundos.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio_desordenado.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio_desordenado.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_completo.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_completo.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_completo.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_sin_links.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_sin_links.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_sin_links.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_trivial.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_trivial.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_trivial.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -139,6 +228,70 @@
       <item path="pruebas.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pruebas.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_15_segundos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_15_segundos.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_15_segundos.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_30_segundos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_30_segundos.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_30_segundos.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio_desordenado.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_aleatorio_desordenado.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_completo.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_completo.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_completo.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_sin_links.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_sin_links.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_sin_links.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/test_trivial.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_trivial.txt.out" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/test_trivial.txt.out.expected"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
   </confs>

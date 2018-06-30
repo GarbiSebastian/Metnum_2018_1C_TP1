@@ -63,7 +63,7 @@ build: .build-post
 .build-pre:
 # Add your pre 'build' code here...
 
-.build-post: .build-impl
+.build-post: .build-impl .tp
 # Add your post 'build' code here...
 
 
@@ -73,8 +73,8 @@ clean: .clean-post
 .clean-pre:
 # Add your pre 'clean' code here...
 
-.clean-post: .clean-impl
-# Add your post 'clean' code here...
+.clean-post: .clean-impl .rm_out
+	rm -f ${TP}
 
 
 # clobber
@@ -93,7 +93,7 @@ all: .all-post
 .all-pre:
 # Add your pre 'all' code here...
 
-.all-post: .all-impl
+.all-post: .all-impl .tp
 # Add your post 'all' code here...
 
 
@@ -103,7 +103,7 @@ build-tests: .build-tests-post
 .build-tests-pre:
 # Add your pre 'build-tests' code here...
 
-.build-tests-post: .build-tests-impl
+.build-tests-post: .build-tests-impl .tp
 # Add your post 'build-tests' code here...
 
 
@@ -126,13 +126,13 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
-rm_out:
+.rm_out:
 	rm -f tests_tp1/*.out
 
-tp: all rm_out
+.tp:
 	cp ${CND_ARTIFACT_PATH_Release} ${TP}
 
-pruebas: tp .${PRUEBA1} .${PRUEBA2} .${PRUEBA3} .${PRUEBA4} .${PRUEBA5} .${PRUEBA6}
+pruebas: .tp .${PRUEBA1} .${PRUEBA2} .${PRUEBA3} .${PRUEBA4} .${PRUEBA5} .${PRUEBA6}
 	echo "Todas las pruebas correctas";
 
 .${PRUEBA1}:
