@@ -16,7 +16,14 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <logicalFolder name="tests" displayName="tests" projectFiles="true">
+        <itemPath>tests/nodo_importante_y_nodo_insulso.txt</itemPath>
+      </logicalFolder>
       <logicalFolder name="tests_tp1" displayName="tests_tp1" projectFiles="true">
+        <itemPath>tests_tp1/circulos.txt</itemPath>
+        <itemPath>tests_tp1/dos_grupos.txt</itemPath>
+        <itemPath>tests_tp1/mitad.txt</itemPath>
+        <itemPath>tests_tp1/nodo_importante_y_nodo_insulso.txt</itemPath>
         <itemPath>tests_tp1/test_15_segundos.txt</itemPath>
         <itemPath>tests_tp1/test_15_segundos.txt.out</itemPath>
         <itemPath>tests_tp1/test_15_segundos.txt.out.expected</itemPath>
@@ -37,6 +44,7 @@
         <itemPath>tests_tp1/test_trivial.txt</itemPath>
         <itemPath>tests_tp1/test_trivial.txt.out</itemPath>
         <itemPath>tests_tp1/test_trivial.txt.out.expected</itemPath>
+        <itemPath>tests_tp1/todos_para_uno.txt</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
@@ -64,6 +72,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>tests_tp1</Elem>
+    <Elem>tests</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -112,6 +121,22 @@
       <item path="pruebas.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pruebas.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/nodo_importante_y_nodo_insulso.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/circulos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/dos_grupos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/mitad.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/nodo_importante_y_nodo_insulso.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="tests_tp1/test_15_segundos.txt" ex="false" tool="3" flavor2="0">
       </item>
@@ -176,6 +201,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="tests_tp1/todos_para_uno.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -229,6 +256,22 @@
       </item>
       <item path="pruebas.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="tests/nodo_importante_y_nodo_insulso.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests_tp1/circulos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/dos_grupos.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/mitad.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests_tp1/nodo_importante_y_nodo_insulso.txt"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="tests_tp1/test_15_segundos.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests_tp1/test_15_segundos.txt.out" ex="false" tool="3" flavor2="0">
@@ -292,6 +335,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="tests_tp1/todos_para_uno.txt" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
