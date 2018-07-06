@@ -1,0 +1,39 @@
+hacer analisis sobre probabilidad:
+
+
+analisis sobre cantidad de links
+ver como afecta cantidades de links
+
+caso1 vs caso 2
+
+ver la diferencia entre cantidad de links
+ver como afecta que haya una cantidad considerable de links entre los comunes.
+se espera:
+que los comunes tengan el mismo peso
+que el nodo central sea el mas pesado
+que el "hermanito" sea tan pesado como el central ya que es el unico que recibe del central
+se obtuvo:
+"hermanito" as casi tan pesado como el central.
+los comunes tienen el mismo peso. en el caso1 son mas pesados. esto se debe a la cantidad de nodos salientes entre ellos.
+
+
+
+
+caso2 vs caso3
+se espera:
+el hermanito sea mas pesado que el central porque no pierde por link saliente.
+se obtuvo:
+el hermanito es mas peado.
+es importante la vuelta de hermanito a central
+
+
+k4 vs circuito4
+se espera:
+se obtuvo:
+
+circuito5 vs circuito4
+se espera:
+se obtuvo:
+
+
+
