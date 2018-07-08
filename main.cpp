@@ -9,9 +9,8 @@
 #include "MatrizBasica.h"
 #include "MatrizRala.h"
 #include "MatrizRalaUnordered.h"
-#include "MatrizRalaVectores.h"
+//#include "MatrizRalaVectores.h"
 #include "constantes.h"
-//#include "pruebas.h"
 
 typedef MatrizBasica matriz;
 //typedef MatrizRala matriz;
@@ -80,18 +79,13 @@ void armarDiagonalyZ() {
 }
 
 void calcularIpWD(Matriz* W) {
-	//cout << *W << endl;
 	W->multiplicaPorDiagonal(D);
-	//cout << *W << endl;
 	(*W)*(-p);
-	//cout << *W << endl;
 	double fruta;
 	for (unsigned int i = 1; i <= n; i++) {
 		fruta = (*W)(i, i);
-//		cout << "i: " << i << "  fruta: " << fruta << endl;
 		(*W)(i, i, fruta + 1);
 	}
-//	cout << *W << endl;
 }
 
 void normalizar(vector<double>& x) {
